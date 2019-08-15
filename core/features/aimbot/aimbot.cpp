@@ -352,7 +352,7 @@ void c_aimbot::run(c_usercmd* user_cmd) noexcept {
 			}
 
 			if (is_rifle(weapon)) {
-				switch (config_system.item.aim_mode_pistol) {
+				switch (config_system.item.aim_mode_rifle) {
 				case 0:
 					angle = math.calculate_angle(local_player->get_eye_pos(), entity->get_hitbox_position(entity, hitbox_id), user_cmd->viewangles);
 					break;
