@@ -361,16 +361,6 @@ void c_aimbot::run(c_usercmd* user_cmd) noexcept {
 					break;
 				}
 			}
-			/*
-			switch (config_system.item.aim_mode) {
-			case 0:
-				angle = math.calculate_angle(local_player->get_eye_pos(), entity->get_hitbox_position(entity, hitbox_id), user_cmd->viewangles);
-				break;
-			case 1:
-				angle = math.calculate_angle(local_player->get_eye_pos(), entity->get_bone_position(get_nearest_bone(entity, user_cmd)), user_cmd->viewangles);
-				break;
-			}
-			*/
 
 			angle /= aim_smooth;
 			user_cmd->viewangles += angle;

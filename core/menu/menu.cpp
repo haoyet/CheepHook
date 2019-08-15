@@ -102,11 +102,7 @@ void c_menu::run() {
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16, 16));
 			ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, ImVec4(30 / 255.f, 30 / 255.f, 39 / 255.f, 1.0f));
 			ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0 / 255.f, 0 / 255.f, 0 / 255.f, 0.1f));
-			/*
-			if (config_system.item.visuals_preview) {
-				run_visuals_preview();
-			}
-			*/
+
 			ImGui::PopStyleColor();
 			ImGui::PopStyleColor();
 			ImGui::PopStyleVar();
@@ -126,7 +122,6 @@ void c_menu::run() {
 				ImGui::BeginChild("AIMBOT", ImVec2(279, 268), true); {
 					ImGui::Checkbox("Active", &config_system.item.aim_enabled);
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.aim_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					//ImGui::Combo("mode", &config_system.item.aim_mode, "hitbox\0nearest hitbox"); //todo add custom bone selection - designer
 					ImGui::PopStyleColor();
 					ImGui::Checkbox("Distance Based FOV", &config_system.item.aim_distance_based_fov);
 					ImGui::Checkbox("Silent Aim (Non-pSilent)", &config_system.item.aim_silent);
@@ -237,47 +232,6 @@ void c_menu::run() {
 
 				ImGui::BeginChild("ENGINE ESP", ImVec2(279, 268), true); {
 					ImGui::Checkbox("Active", &config_system.item.visuals_enabled);
-					/*
-					if (config_system.item.visuals_enabled) {
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 7);
-						ImGui::Checkbox("teammate", &config_system.item.visuals_team_check);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 7);
-						ImGui::Checkbox("visible only", &config_system.item.visuals_visible_only);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 7);
-						ImGui::Checkbox("on key", &config_system.item.visuals_on_key);
-					}
-					*/
-					/*
-					ImGui::Checkbox("name", &config_system.item.player_name);
-					ImGui::ColorEdit4("name color", config_system.item.clr_name, ImGuiColorEditFlags_NoInputs);					
-					ImGui::Combo("box type", &config_system.item.player_box, "off\0normal\0edges");
-					ImGui::ColorEdit4("box color", config_system.item.clr_box, ImGuiColorEditFlags_NoInputs);
-					ImGui::Checkbox("health", &config_system.item.player_health);
-					ImGui::Checkbox("weapon", &config_system.item.player_weapon);
-					ImGui::ColorEdit4("weapon color", config_system.item.clr_weapon, ImGuiColorEditFlags_NoInputs);
-
-					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.visuals_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					if (ImGui::BeginCombo("flags", "...", ImVec2(0, 105))) {
-						ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 8);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("armor"), &config_system.item.player_flags_armor, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("bomb"), &config_system.item.player_flags_c4, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("flashed"), &config_system.item.player_flags_flashed, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("money"), &config_system.item.player_flags_money, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("scoped"), &config_system.item.player_flags_scoped, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-
-						ImGui::EndCombo();
-					}
-					ImGui::PopStyleColor();
-					ImGui::Checkbox("footstep", &config_system.item.sound_footstep);
-					ImGui::ColorEdit4("footstep color", config_system.item.clr_footstep, ImGuiColorEditFlags_NoInputs);
-					ImGui::Checkbox("skeleton", &config_system.item.skeleton);
-					ImGui::Checkbox("preview visuals", &config_system.item.visuals_preview);
-					*/
 				}
 				ImGui::EndChild(true);
 
@@ -288,53 +242,17 @@ void c_menu::run() {
 
 				ImGui::BeginChild("EFFECTS", ImVec2(279, 267), true); {
 					ImGui::Checkbox("Force Crosshair", &config_system.item.force_crosshair);
-					/*
-					ImGui::Checkbox("modulate crosshair color", &config_system.item.crosshair_color);
-					ImGui::ColorEdit4("##crosshair color", config_system.item.clr_crosshair, ImGuiColorEditFlags_NoInputs);
-					ImGui::Checkbox("modulate crosshair outline color", &config_system.item.crosshair_outline_color);
-					ImGui::ColorEdit4("##crosshair outline color", config_system.item.clr_crosshair_outline, ImGuiColorEditFlags_NoInputs);
-					*/
 
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.visuals_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					//ImGui::SliderInt("viewmodel field of view", &config_system.item.viewmodel_fov, 0, 135);
 					ImGui::SliderInt("FOV Override", &config_system.item.fov, 0, 60);
 					ImGui::PopStyleColor();
-					/*
-					ImGui::Checkbox("night mode", &config_system.item.nightmode);
-					ImGui::ColorEdit4("sky color", config_system.item.clr_sky, ImGuiColorEditFlags_NoInputs);
-					if (config_system.item.nightmode) {
-						ImGui::SliderInt("brightness", &config_system.item.nightmode_brightness, 0, 100);
-					}
-					*/
+
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.visuals_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					/*
-					if (ImGui::BeginCombo("removals", "...", ImVec2(0, 105))) {
-						ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 8);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("smoke"), &config_system.item.remove_smoke, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("flash"), &config_system.item.reduce_flash, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("sleeves"), &config_system.item.remove_sleeves, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("hands"), &config_system.item.remove_hands, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("scope overlay"), &config_system.item.remove_scope, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::EndCombo();
-					}
-					*/
-					if (ImGui::BeginCombo("WORLD ESP", "...", ImVec2(0, 49))) {
+					
+					if (ImGui::BeginCombo("World ESP", "...", ImVec2(0, 49))) {
 						ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 8);
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
 						ImGui::Selectable(("Planted Bomb"), &config_system.item.bomb_planted, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						/*
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("dropped weapons"), &config_system.item.dropped_weapons, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("projectiles"), &config_system.item.projectiles, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("misc entities"), &config_system.item.entity_esp, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
-						*/
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
 						ImGui::Selectable(("Danger Zone"), &config_system.item.danger_zone_dropped, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
 						ImGui::EndCombo();
@@ -397,7 +315,6 @@ void c_menu::run() {
 
 				ImGui::BeginChild("MISC", ImVec2(279, 543), true); {
 					ImGui::Checkbox("Active", &config_system.item.misc_enabled);
-					//ImGui::Checkbox("clantag spammer", &config_system.item.clan_tag);
 					ImGui::Checkbox("Engine Radar", &config_system.item.radar);
 
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.misc_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
@@ -415,38 +332,14 @@ void c_menu::run() {
 
 					ImGui::Checkbox("Hitmarker", &config_system.item.hitmarker);
 					if (config_system.item.hitmarker) {
-						ImGui::Combo("hitmarker sound", &config_system.item.hitmarker_sound, "none\0one\0two\0three");
+						ImGui::Combo("Hitmarker Sound", &config_system.item.hitmarker_sound, "none\0one\0two\0three");
 					}
 					ImGui::Checkbox("Anti Screenshot", &config_system.item.anti_screenshot);
 					ImGui::Checkbox("Spectator List", &config_system.item.spectators_list);
 					ImGui::Checkbox("Watermark", &config_system.item.watermark);
 					ImGui::Checkbox("Draw Aimbot Fov", &config_system.item.draw_aim_fov);
 					ImGui::Checkbox("Disable Post Processing", &config_system.item.disable_post_processing);
-					//ImGui::Checkbox("recoil crosshair", &config_system.item.recoil_crosshair);
 					ImGui::Checkbox("Rank Reveal", &config_system.item.rank_reveal);
-					/*
-					ImGui::Checkbox("viewmodel offset", &config_system.item.viewmodel_offset);
-					if (config_system.item.viewmodel_offset) {
-						ImGui::SliderInt("viewmodel x", &config_system.item.viewmodel_x, -10, 10);
-						ImGui::SliderInt("viewmodel y", &config_system.item.viewmodel_y, -10, 10);
-						ImGui::SliderInt("viewmodel z", &config_system.item.viewmodel_z, -10, 10);
-
-					}
-					*/
-					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.misc_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					/*
-					ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
-					if (ImGui::Button("dump steam id", ImVec2(84, 18))) {
-						utilities::dump_steam_id();
-					}
-
-					ImGui::SameLine();
-					if (ImGui::Button("hide name", ImVec2(84, 18))) {
-						utilities::change_name("\n\xAD\xAD\xAD");
-					}
-					*/
-					ImGui::PopStyleColor();
-					
 				}
 				ImGui::EndChild(true);
 				ImGui::NextColumn();
@@ -454,15 +347,14 @@ void c_menu::run() {
 				ImGui::BeginChild("MOVEMENT", ImVec2(279, 543), true); {
 					ImGui::Checkbox("Bunnyhop", &config_system.item.bunny_hop);
 					if (config_system.item.bunny_hop) {
-						ImGui::SliderInt("hitchance", &config_system.item.bunny_hop_hitchance, 0, 100);
-						ImGui::SliderInt("minimum hops", &config_system.item.bunny_hop_minimum_value, 0, 20);
-						ImGui::SliderInt("maximum hops", &config_system.item.bunny_hop_maximum_value, 0, 20);
+						ImGui::SliderInt("Hitchance", &config_system.item.bunny_hop_hitchance, 0, 100);
+						ImGui::SliderInt("Minimum hops", &config_system.item.bunny_hop_minimum_value, 0, 20);
+						ImGui::SliderInt("Maximum hops", &config_system.item.bunny_hop_maximum_value, 0, 20);
 					}
 
-					//ImGui::Checkbox("slide walk", &config_system.item.slidewalk);
 					ImGui::Checkbox("Edge Jump", &config_system.item.edge_jump);
 					if (config_system.item.edge_jump) {
-						ImGui::Checkbox("duck in air", &config_system.item.edge_jump_duck_in_air);
+						ImGui::Checkbox("Duck in Air", &config_system.item.edge_jump_duck_in_air);
 					}
 				}
 				ImGui::EndChild(true);
@@ -571,19 +463,12 @@ void c_menu::run() {
 					if (config_system.item.keybinds_selection == 0) {
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
 						ImGui::InputInt("##AimbotKey", &config_system.item.aim_key);
-						//ImGui::Hotkey("##Edge Jump Key", &config_system.item.edge_jump_key, ImVec2(100, 20));
 					}
 
 					else if (config_system.item.keybinds_selection == 1) {
-						//ImGui::Hotkey("##Aimbot Key", &config_system.item.aim_key, ImVec2(100, 20));
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
 						ImGui::InputInt("##AimbotKey", &config_system.item.aim_key);
 					}
-					/*
-					else if (config_system.item.keybinds_selection == 2) {
-						ImGui::Hotkey("##visuals key", &config_system.item.visuals_key, ImVec2(100, 20));
-					}
-					*/
 				}
 				ImGui::EndChild(true);
 
@@ -644,66 +529,3 @@ void c_menu::run_popup() {
 	ImGui::PopStyleVar();
 	ImGui::PopFont();
 }
-/*
-void c_menu::run_visuals_preview() {
-	static std::vector<esp_info_s> info;
-	static bool enabled = true;
-
-	ImGui::SetNextWindowSize(ImVec2(235, 400));
-
-	ImGui::Begin("ESP Preview", &enabled, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_ShowBorders | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar); {
-		const auto cur_window = ImGui::GetCurrentWindow();
-		const ImVec2 w_pos = cur_window->Pos;
-
-		ImVec2 p = ImGui::GetCursorScreenPos();
-		ImColor c = ImColor(32, 114, 247);
-
-		//title bar
-		ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(p.x - 20, p.y + 15), ImVec2(p.x + ImGui::GetWindowWidth(), p.y - 40), ImColor(30, 30, 39));
-
-		//draw gradient bellow title bar
-		ImGui::GetWindowDrawList()->AddRectFilledMultiColor(ImVec2(p.x - 20, p.y + 14), ImVec2(p.x + ImGui::GetWindowWidth(), p.y + 16), ImColor(167, 24, 71, 255), ImColor(58, 31, 87, 255), ImColor(58, 31, 87, 255), ImColor(167, 24, 71, 255));
-
-		ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 9); //góra, dół
-		ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 8); //lewo prawo
-		//render cheat name
-		ImGui::Text("visuals preview");
-
-
-		if (config_system.item.player_box) {
-			cur_window->DrawList->AddRect(ImVec2(w_pos.x + 40, w_pos.y + 60), ImVec2(w_pos.x + 200, w_pos.y + 360), ImGui::GetColorU32(ImGuiCol_Text));
-		}
-
-		if (config_system.item.player_health)
-			cur_window->DrawList->AddRectFilled(ImVec2(w_pos.x + 34, w_pos.y + 60), ImVec2(w_pos.x + 36, w_pos.y + 360), ImGui::GetColorU32(ImVec4(83 / 255.f, 200 / 255.f, 84 / 255.f, 255 / 255.f)));
-
-		if (config_system.item.player_name)
-			info.emplace_back(esp_info_s("name", color(255, 255, 255, 255), CENTER_UP));
-
-		if (config_system.item.player_weapon)
-			info.emplace_back(esp_info_s("awp", color(255, 255, 255, 255), CENTER_DOWN));
-
-		if (config_system.item.player_flags_armor)
-			info.emplace_back(esp_info_s("hk", color(255, 255, 255, 255), RIGHT));
-
-
-		for (auto render : info) {
-			const auto text_size = ImGui::CalcTextSize(render.f_name.c_str());
-
-			auto pos = ImVec2(w_pos.x + 205, w_pos.y + 60);
-
-			if (render.f_position == CENTER_DOWN) {
-				pos = ImVec2(w_pos.x + (240 / 2) - text_size.x / 2, pos.y + 315 - text_size.y);
-			}
-			else if (render.f_position == CENTER_UP) {
-				pos = ImVec2(w_pos.x + (240 / 2) - text_size.x / 2, pos.y - 5 - text_size.y);
-			}
-
-			cur_window->DrawList->AddText(pos, ImGui::GetColorU32(ImVec4(255 / 255.f, 255 / 255.f, 255 / 255.f, 255 / 255.f)), render.f_name.c_str());
-		}
-	}
-	ImGui::End();
-
-	info.clear();
-}
-*/

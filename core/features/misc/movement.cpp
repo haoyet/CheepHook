@@ -55,38 +55,7 @@ void c_movement::edge_jump_pre_prediction(c_usercmd* user_cmd) noexcept {
 
 	flags_backup = local_player->flags();
 }
-/*
-void c_movement::slidewalk(c_usercmd* user_cmd) noexcept {
-	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player())); // lol
 
-	if (!config_system.item.slidewalk)
-		return;
-
-	if (!local_player)
-		return;
-
-	if (!local_player->is_alive())
-		return;
-
-	if (local_player->is_alive()) {
-		if (user_cmd->forwardmove > 0)
-			user_cmd->buttons |= in_back;
-			user_cmd->buttons &= ~in_forward;
-
-		if (user_cmd->forwardmove < 0)
-			user_cmd->buttons |= in_forward;
-			user_cmd->buttons &= ~in_back;
-
-		if (user_cmd->sidemove < 0)
-			user_cmd->buttons |= in_moveright;
-			user_cmd->buttons &= ~in_moveleft;
-
-		if (user_cmd->sidemove > 0)
-			user_cmd->buttons |= in_moveleft;
-			user_cmd->buttons &= ~in_moveright;
-	} 
-}
-*/
 void c_movement::edge_jump_post_prediction(c_usercmd* user_cmd) noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 

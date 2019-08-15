@@ -40,7 +40,6 @@ void hooks::initialize() noexcept {
 	clientmode_hook->hook_index(18, reinterpret_cast<void*>(override_view));
 	clientmode_hook->hook_index(24, reinterpret_cast<void*>(create_move));
 	clientmode_hook->hook_index(44, reinterpret_cast<void*>(do_post_screen_effects));
-	//clientmode_hook->hook_index(35, reinterpret_cast<void*>(viewmodel_fov));
 
 	panel_hook->setup(interfaces::panel);
 	panel_hook->hook_index(41, reinterpret_cast<void*>(paint_traverse));
@@ -51,7 +50,6 @@ void hooks::initialize() noexcept {
 	surface_hook->setup(interfaces::surface);
 	surface_hook->hook_index(67, reinterpret_cast<void*>(lock_cursor));
 	surface_hook->hook_index(116, reinterpret_cast<void*>(on_screen_size_changed));
-	//surface_hook->hook_index(15, reinterpret_cast<void*>(draw_set_color));
 
 	modelrender_hook->setup(interfaces::model_render);
 	modelrender_hook->hook_index(21, reinterpret_cast<void*>(draw_model_execute)); //hooked for backtrack chams
@@ -91,44 +89,7 @@ void hooks::shutdown() noexcept {
 
 	SetWindowLongW(FindWindowW(L"Valve001", NULL), GWL_WNDPROC, reinterpret_cast<LONG>(wndproc_original));
 }
-/*
-float __stdcall hooks::viewmodel_fov() noexcept {
-	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 
-	if (local_player && local_player->is_alive())
-		return 68.f + config_system.item.viewmodel_fov;
-	else
-		return 68.f;
-}
-
-void __stdcall hooks::draw_set_color(int r, int g, int b, int a) noexcept {
-	static auto original_fn = reinterpret_cast<draw_set_color_fn>(surface_hook->get_original(15));
-
-	auto color_red = config_system.item.clr_crosshair[0] * 255;
-	auto color_green = config_system.item.clr_crosshair[1] * 255;
-	auto color_blue = config_system.item.clr_crosshair[2] * 255;
-	auto color_alpha = config_system.item.clr_crosshair[3] * 255;
-
-	auto outline_red = config_system.item.clr_crosshair_outline[0] * 255;
-	auto outline_green = config_system.item.clr_crosshair_outline[1] * 255;
-	auto outline_blue = config_system.item.clr_crosshair_outline[2] * 255;
-	auto outline_alpha = config_system.item.clr_crosshair_outline[3] * 255;
-
-	if (config_system.item.crosshair_color) {
-		static const auto crosshair_color_fn = utilities::pattern_scan(GetModuleHandleA("client_panorama.dll"), "FF 50 3C 80 7D 20 00") + 3;
-		if (_ReturnAddress() == reinterpret_cast<void*>(crosshair_color_fn))
-			return original_fn(interfaces::surface, color_red, color_green, color_blue, color_alpha);
-	}
-
-	if (config_system.item.crosshair_outline_color) {
-		static const auto crosshair_outline_color_fn = utilities::pattern_scan(GetModuleHandleA("client_panorama.dll"), "FF 50 3C F3 0F 10 4D ? 66 0F 6E C6") + 3;
-		if (_ReturnAddress() == reinterpret_cast<void*>(crosshair_outline_color_fn))
-			return original_fn(interfaces::surface, outline_red, outline_green, outline_blue, outline_alpha);
-	}
-
-	original_fn(interfaces::surface, r, g, b ,a);
-}
-*/
 void __stdcall hooks::on_screen_size_changed(int old_width, int old_height) noexcept {
 	static auto original_fn = reinterpret_cast<on_screen_size_changed_fn>(surface_hook->get_original(116));
 
@@ -160,10 +121,7 @@ bool __stdcall hooks::create_move(float frame_time, c_usercmd* user_cmd) noexcep
 
 	//misc
 	movement.bunnyhop(user_cmd);
-	//misc.clantag_spammer();
-	//misc.viewmodel_offset();
 	misc.disable_post_processing();
-	//misc.recoil_crosshair();
 	misc.force_crosshair();
 	misc.rank_reveal();
 
@@ -207,7 +165,6 @@ void __stdcall hooks::draw_model_execute(IMatRenderContext* ctx, const draw_mode
 	static auto original_fn = reinterpret_cast<draw_model_execute_fn>(modelrender_hook->get_original(21));
 
 	visuals.backtrack_chams(ctx, state, info);
-	//visuals.viewmodel_modulate(info);
 
 	original_fn(interfaces::model_render, ctx, state, info, bone_to_world);
 }
@@ -215,21 +172,7 @@ void __stdcall hooks::draw_model_execute(IMatRenderContext* ctx, const draw_mode
 void __stdcall hooks::frame_stage_notify(int frame_stage) noexcept {
 	static auto original_fn = reinterpret_cast<frame_stage_notify_fn>(client_hook->get_original(37));
 	static auto backtrack_init = (backtrack.init(), false);
-	/*
-	if (frame_stage == FRAME_RENDER_START) {
-		misc.remove_smoke();
-		misc.remove_flash();
-	}
-
-	else if (frame_stage == FRAME_NET_UPDATE_POSTDATAUPDATE_START) {
-		skin_changer.run();
-		glove_changer.run();
-	}
-
-	else if (frame_stage == FRAME_NET_UPDATE_START && interfaces::engine->is_in_game()) {
-		sound_esp.draw();
-	}
-	*/
+	
 	if (frame_stage != FRAME_RENDER_START && frame_stage != FRAME_NET_UPDATE_POSTDATAUPDATE_START && frame_stage != FRAME_NET_UPDATE_START && frame_stage == FRAME_NET_UPDATE_END && interfaces::engine->is_in_game()) {
 		backtrack.update();
 	}
@@ -237,21 +180,13 @@ void __stdcall hooks::frame_stage_notify(int frame_stage) noexcept {
 	original_fn(interfaces::client, frame_stage);
 }
 void __stdcall hooks::paint_traverse(unsigned int panel, bool force_repaint, bool allow_force) noexcept {
-	/*
-	if (strstr(interfaces::panel->get_panel_name(panel), "HudZoom")) {
-		if (interfaces::engine->is_connected() && interfaces::engine->is_in_game()) {
-			if (config_system.item.remove_scope)
-				return;
-		}
-	}
-	*/
+	
 	reinterpret_cast<paint_traverse_fn>(panel_hook->get_original(41))(interfaces::panel, panel, force_repaint, allow_force);
 
 	if (strstr(interfaces::panel->get_panel_name(panel), "MatSystemTopPanel")) {
 		visuals.run();
 		hitmarker.run();
 		event_logs.run();
-		//misc.remove_scope();
 		misc.watermark();
 		misc.draw_aim_fov();
 		misc.spectators();

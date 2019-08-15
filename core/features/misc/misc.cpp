@@ -3,48 +3,7 @@
 #include "..//..//..//dependencies/math/math.hpp"
 
 c_misc misc;
-/*
-void c_misc::remove_smoke() noexcept {
-	if (!config_system.item.remove_smoke || !config_system.item.visuals_enabled)
-		return;
 
-	if (!interfaces::engine->is_connected() && !interfaces::engine->is_in_game())
-		return;
-
-	static auto smoke_count = *reinterpret_cast<uint32_t **>(utilities::pattern_scan(GetModuleHandleA("client_panorama.dll"), "A3 ? ? ? ? 57 8B CB") + 1);
-
-	static std::vector<const char*> smoke_materials = {
-		"particle/vistasmokev1/vistasmokev1_fire",
-		"particle/vistasmokev1/vistasmokev1_smokegrenade",
-		"particle/vistasmokev1/vistasmokev1_emods",
-		"particle/vistasmokev1/vistasmokev1_emods_impactdust"
-	};
-
-	for (auto material_name : smoke_materials) {
-		i_material * smoke = interfaces::material_system->find_material(material_name, TEXTURE_GROUP_OTHER);
-		smoke->increment_reference_count();
-		smoke->set_material_var_flag(MATERIAL_VAR_WIREFRAME, true);
-
-		*(int*)smoke_count = 0;
-	}
-}
-
-void c_misc::remove_flash() noexcept {
-	if (!config_system.item.reduce_flash || !config_system.item.visuals_enabled)
-		return;
-
-	if (!interfaces::engine->is_connected() && !interfaces::engine->is_in_game())
-		return;
-
-	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
-
-	if (!local_player)
-		return;
-
-	if (local_player->flash_duration() > 0.0f)
-		local_player->flash_duration() = 0.0f;
-}
-*/
 void c_misc::rank_reveal() noexcept {
 	if (!config_system.item.rank_reveal || !config_system.item.misc_enabled)
 		return;
@@ -52,29 +11,7 @@ void c_misc::rank_reveal() noexcept {
 	if (GetAsyncKeyState(VK_TAB))
 		interfaces::client->dispatch_user_message(cs_um_serverrankrevealall, 0, 0, nullptr);
 }
-/*
-void c_misc::remove_scope() noexcept {
-	if (!config_system.item.remove_scope || !config_system.item.visuals_enabled)
-		return;
 
-	if (!interfaces::engine->is_connected() && !interfaces::engine->is_in_game())
-		return;
-
-	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
-
-	if (!local_player)
-		return;
-
-	if (local_player && !local_player->is_scoped())
-		return;
-
-	int w, h;
-	interfaces::engine->get_screen_size(w, h);
-	interfaces::surface->set_drawing_color(0, 0, 0, 255);
-	interfaces::surface->draw_line(0, h / 2, w, h / 2);
-	interfaces::surface->draw_line(w / 2, 0, w / 2, h);
-}
-*/
 void c_misc::spectators() noexcept {
 	if (!config_system.item.spectators_list || !config_system.item.misc_enabled)
 		return;
@@ -205,34 +142,6 @@ void c_misc::draw_aim_fov() {
 		}
 }
 
-/*
-void c_misc::clantag_spammer() noexcept {
-	if (!config_system.item.clan_tag || !config_system.item.misc_enabled)
-		return;
-
-	static std::string tag = "aristois.me ";
-	static float last_time = 0;
-
-	if (interfaces::globals->cur_time > last_time) {
-		std::rotate(std::begin(tag), std::next(std::begin(tag)), std::end(tag));
-		utilities::apply_clan_tag(tag.c_str());
-
-		last_time = interfaces::globals->cur_time + 0.9f;
-	}
-
-	if (fabs(last_time - interfaces::globals->cur_time) > 1.f)
-		last_time = interfaces::globals->cur_time;
-}
-
-void c_misc::viewmodel_offset() noexcept {
-	if (!config_system.item.viewmodel_offset || !config_system.item.misc_enabled)
-		return;
-
-	interfaces::console->get_convar("viewmodel_offset_x")->set_value(config_system.item.viewmodel_x);
-	interfaces::console->get_convar("viewmodel_offset_y")->set_value(config_system.item.viewmodel_y);
-	interfaces::console->get_convar("viewmodel_offset_z")->set_value(config_system.item.viewmodel_z);
-}
-*/
 void c_misc::disable_post_processing() noexcept {
 	if (!config_system.item.misc_enabled)
 		return;
@@ -240,15 +149,7 @@ void c_misc::disable_post_processing() noexcept {
 	static auto mat_postprocess_enable = interfaces::console->get_convar("mat_postprocess_enable");
 	mat_postprocess_enable->set_value(config_system.item.disable_post_processing ? 0 : 1);
 }
-/*
-void c_misc::recoil_crosshair() noexcept {
-	if (!config_system.item.misc_enabled)
-		return;
 
-	static auto cl_crosshair_recoil = interfaces::console->get_convar("cl_crosshair_recoil");
-	cl_crosshair_recoil->set_value(config_system.item.recoil_crosshair ? 1 : 0);
-}
-*/
 void c_misc::force_crosshair() noexcept {
 	if (!config_system.item.misc_enabled)
 		return;
