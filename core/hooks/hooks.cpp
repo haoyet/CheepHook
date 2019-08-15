@@ -253,6 +253,7 @@ void __stdcall hooks::paint_traverse(unsigned int panel, bool force_repaint, boo
 		event_logs.run();
 		//misc.remove_scope();
 		misc.watermark();
+		misc.draw_aim_fov();
 		misc.spectators();
 	}
 }

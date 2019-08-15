@@ -68,6 +68,7 @@ void c_visuals::run() noexcept {
 
 			if (client_class->class_id == class_ids::cplantedc4) { //this should be fixed in better ways than this - designer
 				bomb_esp(entity);
+				bomb_defuse_esp(entity);
 			}
 
 			//entity_esp(entity);

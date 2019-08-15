@@ -1,4 +1,6 @@
 #include "misc.hpp"
+#include "../aimbot/aimbot.hpp"
+#include "..//..//..//dependencies/math/math.hpp"
 
 c_misc misc;
 /*
@@ -148,6 +150,61 @@ void c_misc::watermark() noexcept {
 	render.draw_outline(width - 275, 4, 260, 20, color(30, 30, 41, 255));
 	render.draw_text(width - 270, 7, render.watermark_font, ss.str().c_str(), false, color(255, 255, 255, 255));
 }
+
+void c_misc::draw_aim_fov() {
+	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
+
+	if (!config_system.item.draw_aim_fov || !config_system.item.misc_enabled || !interfaces::engine->is_in_game() || !local_player->is_alive())
+		return;
+
+	auto weapon = local_player->active_weapon();
+
+	int width, height;
+	interfaces::engine->get_screen_size(width, height);
+
+	float half_fov;
+	
+	if ((width / height) == (16 / 9))
+		half_fov = deg_to_rad(106.3)/2;
+
+	else if ((width / height) == (16 / 10))
+		half_fov = deg_to_rad(100.4)/2;
+
+	else if ((width / height) == (4 / 3))
+		half_fov = deg_to_rad(90)/2;
+	
+		if (aimbot.is_pistol(weapon) && config_system.item.aim_fov_pistol > 0) {
+			float d_draw_aim_fov_radius_pistol = tan(deg_to_rad(config_system.item.aim_fov_pistol) / 2) / tan(half_fov) * (width / 2);
+			int i_draw_aim_fov_radius_pistol = std::round(d_draw_aim_fov_radius_pistol);
+			render.draw_circle(width / 2, height / 2, i_draw_aim_fov_radius_pistol, i_draw_aim_fov_radius_pistol, color(0, 255, 255, 255));
+		}
+
+		if (aimbot.is_smg(weapon) && config_system.item.aim_fov_smg > 0) {
+			float d_draw_aim_fov_radius_smg = tan(deg_to_rad(config_system.item.aim_fov_smg) / 2) / tan(half_fov) * (width / 2);
+			int i_draw_aim_fov_radius_smg = std::round(d_draw_aim_fov_radius_smg);
+			render.draw_circle(width / 2, height / 2, i_draw_aim_fov_radius_smg, i_draw_aim_fov_radius_smg, color(0, 255, 255, 255));
+		}
+
+		if (aimbot.is_sniper(weapon) && config_system.item.aim_fov_sniper > 0 && !local_player->is_scoped()) {
+			float d_draw_aim_fov_radius_sniper = tan(deg_to_rad(config_system.item.aim_fov_sniper) / 2) / tan(half_fov) * (width / 2);
+			int i_draw_aim_fov_radius_sniper = std::round(d_draw_aim_fov_radius_sniper);
+			render.draw_circle(width / 2, height / 2, i_draw_aim_fov_radius_sniper, i_draw_aim_fov_radius_sniper, color(0, 255, 255, 255));
+
+		}
+
+		if (aimbot.is_heavy(weapon) && config_system.item.aim_fov_heavy > 0) {
+			float d_draw_aim_fov_radius_heavy = tan(deg_to_rad(config_system.item.aim_fov_heavy) / 2) / tan(half_fov) * (width / 2);
+			int i_draw_aim_fov_radius_heavy = std::round(d_draw_aim_fov_radius_heavy);
+			render.draw_circle(width / 2, height / 2, i_draw_aim_fov_radius_heavy, i_draw_aim_fov_radius_heavy, color(0, 255, 255, 255));
+		}
+
+		if (aimbot.is_rifle(weapon) && config_system.item.aim_fov_rifle > 0) {
+			float d_draw_aim_fov_radius_rifle = tan(deg_to_rad(config_system.item.aim_fov_rifle) / 2) / tan(half_fov) * (width / 2);
+			int i_draw_aim_fov_radius_rifle = std::round(d_draw_aim_fov_radius_rifle);
+			render.draw_circle(width / 2, height / 2, i_draw_aim_fov_radius_rifle, i_draw_aim_fov_radius_rifle, color(0, 255, 255, 255));
+		}
+}
+
 /*
 void c_misc::clantag_spammer() noexcept {
 	if (!config_system.item.clan_tag || !config_system.item.misc_enabled)

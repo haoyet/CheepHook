@@ -9,6 +9,7 @@ public:
 	//void remove_scope() noexcept;
 	void spectators() noexcept;
 	void watermark() noexcept;
+	void draw_aim_fov();
 	//void clantag_spammer() noexcept;
 	//void viewmodel_offset() noexcept;
 	void disable_post_processing() noexcept;

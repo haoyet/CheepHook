@@ -123,20 +123,20 @@ void c_menu::run() {
 				ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, ImVec4(30 / 255.f, 30 / 255.f, 39 / 255.f, 1.0f));
 				//push border color for child
 				ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0 / 255.f, 0 / 255.f, 0 / 255.f, 0.1f));
-				ImGui::BeginChild("aimbot", ImVec2(279, 268), true); {
-					ImGui::Checkbox("active", &config_system.item.aim_enabled);
+				ImGui::BeginChild("AIMBOT", ImVec2(279, 268), true); {
+					ImGui::Checkbox("Active", &config_system.item.aim_enabled);
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.aim_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
 					//ImGui::Combo("mode", &config_system.item.aim_mode, "hitbox\0nearest hitbox"); //todo add custom bone selection - designer
 					ImGui::PopStyleColor();
-					ImGui::Checkbox("dynamic fov", &config_system.item.aim_distance_based_fov);
-					ImGui::Checkbox("silent aim", &config_system.item.aim_silent);
-					ImGui::Checkbox("scope aim", &config_system.item.scope_aim);
-					ImGui::Checkbox("smoke aim", &config_system.item.smoke_check);
-					ImGui::Checkbox("friendly fire", &config_system.item.aim_team_check);
-					ImGui::Checkbox("jump check", &config_system.item.aim_jump_check);
-					ImGui::Checkbox("auto pistol", &config_system.item.aimbot_auto_pistol);
+					ImGui::Checkbox("Distance Based FOV", &config_system.item.aim_distance_based_fov);
+					ImGui::Checkbox("Silent Aim (Non-pSilent)", &config_system.item.aim_silent);
+					ImGui::Checkbox("Scope Aim", &config_system.item.scope_aim);
+					ImGui::Checkbox("Smoke Aim", &config_system.item.smoke_check);
+					ImGui::Checkbox("Friendly Fire", &config_system.item.aim_team_check);
+					ImGui::Checkbox("Jump Check", &config_system.item.aim_jump_check);
+					ImGui::Checkbox("Auto Pistol", &config_system.item.aimbot_auto_pistol);
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.aim_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					ImGui::SliderInt("kill delay", &config_system.item.aimbot_delay_after_kill, 0, 350);
+					ImGui::SliderInt("Aimlock Delay After Kill", &config_system.item.aimbot_delay_after_kill, 0, 350);
 					ImGui::PopStyleColor();
 
 				} ImGui::EndChild(true);
@@ -146,76 +146,76 @@ void c_menu::run() {
 				ImGui::Dummy(ImVec2(0, 0)); ImGui::SameLine();
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16, 16));
 
-				ImGui::BeginChild("backtrack", ImVec2(279, 267), true); {
-					ImGui::Checkbox("active", &config_system.item.backtrack);
+				ImGui::BeginChild("BACKTRACK", ImVec2(279, 267), true); {
+					ImGui::Checkbox("Active", &config_system.item.backtrack);
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.backtrack ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					ImGui::SliderFloat("records (ms)", &config_system.item.backtrack_ms, 1.0f, 200.0f, "%.2f");
+					ImGui::SliderFloat("Records (ms)", &config_system.item.backtrack_ms, 1.0f, 200.0f, "%.2f");
 					ImGui::PopStyleColor();
 				}
 				ImGui::EndChild(true);
 
 				ImGui::NextColumn();
 
-				ImGui::BeginChild("settings", ImVec2(279, 543), true); {
-					if (ImGui::ButtonT("pistol", ImVec2(50, 30), test, 0, false, ImColor(0, 0, 0))) test = 0; ImGui::SameLine(0, 0);
-					if (ImGui::ButtonT("rifle", ImVec2(50, 30), test, 1, false, false)) test = 1; ImGui::SameLine(0, 0); 
-					if (ImGui::ButtonT("sniper", ImVec2(50, 30), test, 2, false, false)) test = 2; ImGui::SameLine(0, 0); 
-					if (ImGui::ButtonT("smg", ImVec2(50, 30), test, 3, false, false)) test = 3; ImGui::SameLine(0, 0); 
-					if (ImGui::ButtonT("heavy", ImVec2(50, 30), test, 4, false, false)) test = 4; 
+				ImGui::BeginChild("SETTINGS", ImVec2(279, 543), true); {
+					if (ImGui::ButtonT("PISTOL", ImVec2(50, 30), test, 0, false, ImColor(0, 0, 0))) test = 0; ImGui::SameLine(0, 0);
+					if (ImGui::ButtonT("RIFLE", ImVec2(50, 30), test, 1, false, false)) test = 1; ImGui::SameLine(0, 0); 
+					if (ImGui::ButtonT("SNIPER", ImVec2(50, 30), test, 2, false, false)) test = 2; ImGui::SameLine(0, 0); 
+					if (ImGui::ButtonT("SMG", ImVec2(50, 30), test, 3, false, false)) test = 3; ImGui::SameLine(0, 0); 
+					if (ImGui::ButtonT("HEAVY", ImVec2(50, 30), test, 4, false, false)) test = 4; 
 
 					ImGui::PushFont(font_menu);
 
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.aim_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
 					switch (test) {
 					case 0:
-						ImGui::Checkbox("nearest hitbox", &config_system.item.aim_mode_pistol);
+						ImGui::Checkbox("Nearest Hitbox", &config_system.item.aim_mode_pistol);
 						if (config_system.item.aim_mode_pistol == 0) {
-							ImGui::Combo("pistol hitbox", &config_system.item.aim_bone_pistol, "head\0neck\0chest\0stomach\0pelvis");
+							ImGui::Combo("Hitbox", &config_system.item.aim_bone_pistol, "Head\0Neck\0Chest\0Stomach\0Pelvis");
 						}
-						ImGui::SliderFloat("pistol fov", &config_system.item.aim_fov_pistol, 0.0f, 10.0f, "%.2f");
-						ImGui::SliderFloat("pistol smooth", &config_system.item.aim_smooth_pistol, 1.f, 10.f, "%.2f");
-						ImGui::SliderFloat("pistol rcs x", &config_system.item.rcs_x_pistol, 0.0f, 1.0f, "%.2f");
-						ImGui::SliderFloat("pistol rcs y", &config_system.item.rcs_y_pistol, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("FOV", &config_system.item.aim_fov_pistol, 0.0f, 5.0f, "%.2f");
+						ImGui::SliderFloat("Smoothing", &config_system.item.aim_smooth_pistol, 1.f, 10.f, "%.2f");
+						ImGui::SliderFloat("RCS-X", &config_system.item.rcs_x_pistol, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("RCS-Y", &config_system.item.rcs_y_pistol, 0.0f, 1.0f, "%.2f");
 						break;
 					case 1:
-						ImGui::Checkbox("nearest hitbox", &config_system.item.aim_mode_rifle);
+						ImGui::Checkbox("Nearest Hitbox", &config_system.item.aim_mode_rifle);
 						if (config_system.item.aim_mode_rifle == 0) {
-							ImGui::Combo("rifle hitbox", &config_system.item.aim_bone_rifle, "head\0neck\0chest\0stomach\0pelvis");
+							ImGui::Combo("Hitbox", &config_system.item.aim_bone_rifle, "Head\0Neck\0Chest\0Stomach\0Pelvis");
 						}
-						ImGui::SliderFloat("rifle fov", &config_system.item.aim_fov_rifle, 0.0f, 10.0f, "%.2f");
-						ImGui::SliderFloat("rifle smooth", &config_system.item.aim_smooth_rifle, 1.f, 10.f, "%.2f");
-						ImGui::SliderFloat("rifle rcs x", &config_system.item.rcs_x_rifle, 0.0f, 1.0f, "%.2f");
-						ImGui::SliderFloat("rifle rcs y", &config_system.item.rcs_y_rifle, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("FOV", &config_system.item.aim_fov_rifle, 0.0f, 5.0f, "%.2f");
+						ImGui::SliderFloat("Smoothing", &config_system.item.aim_smooth_rifle, 1.f, 10.f, "%.2f");
+						ImGui::SliderFloat("RCS-X", &config_system.item.rcs_x_rifle, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("RCS-Y", &config_system.item.rcs_y_rifle, 0.0f, 1.0f, "%.2f");
 						break;
 					case 2:
-						ImGui::Checkbox("nearest hitbox", &config_system.item.aim_mode_sniper);
+						ImGui::Checkbox("Nearest Hitbox", &config_system.item.aim_mode_sniper);
 						if (config_system.item.aim_mode_sniper == 0) {
-							ImGui::Combo("sniper hitbox", &config_system.item.aim_bone_sniper, "head\0neck\0chest\0stomach\0pelvis");
+							ImGui::Combo("Hitbox", &config_system.item.aim_bone_sniper, "Head\0Neck\0Chest\0Stomach\0Pelvis");
 						}
-						ImGui::SliderFloat("sniper fov", &config_system.item.aim_fov_sniper, 0.0f, 10.0f, "%.2f");
-						ImGui::SliderFloat("sniper smooth", &config_system.item.aim_smooth_sniper, 1.f, 10.f, "%.2f");
-						ImGui::SliderFloat("sniper rcs x", &config_system.item.rcs_x_sniper, 0.0f, 1.0f, "%.2f");
-						ImGui::SliderFloat("sniper rcs y", &config_system.item.rcs_y_sniper, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("FOV", &config_system.item.aim_fov_sniper, 0.0f, 5.0f, "%.2f");
+						ImGui::SliderFloat("Smoothing", &config_system.item.aim_smooth_sniper, 1.f, 10.f, "%.2f");
+						ImGui::SliderFloat("RCS-X", &config_system.item.rcs_x_sniper, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("RCS-Y", &config_system.item.rcs_y_sniper, 0.0f, 1.0f, "%.2f");
 						break;
 					case 3:
-						ImGui::Checkbox("nearest hitbox", &config_system.item.aim_mode_smg);
+						ImGui::Checkbox("Nearest Hitbox", &config_system.item.aim_mode_smg);
 						if (config_system.item.aim_mode_smg == 0) {
-							ImGui::Combo("smg hitbox", &config_system.item.aim_bone_smg, "head\0neck\0chest\0stomach\0pelvis");
+							ImGui::Combo("Hitbox", &config_system.item.aim_bone_smg, "Head\0Neck\0Chest\0Stomach\0Pelvis");
 						}
-						ImGui::SliderFloat("smg fov", &config_system.item.aim_fov_smg, 0.0f, 10.0f, "%.2f");
-						ImGui::SliderFloat("smg smooth", &config_system.item.aim_smooth_smg, 1.f, 10.f, "%.2f");
-						ImGui::SliderFloat("smg rcs x", &config_system.item.rcs_x_smg, 0.0f, 1.0f, "%.2f");
-						ImGui::SliderFloat("smg rcs y", &config_system.item.rcs_y_smg, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("FOV", &config_system.item.aim_fov_smg, 0.0f, 5.0f, "%.2f");
+						ImGui::SliderFloat("Smoothing", &config_system.item.aim_smooth_smg, 1.f, 10.f, "%.2f");
+						ImGui::SliderFloat("RCS-X", &config_system.item.rcs_x_smg, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("RCS-Y", &config_system.item.rcs_y_smg, 0.0f, 1.0f, "%.2f");
 						break;
 					case 4:
-						ImGui::Checkbox("nearest hitbox", &config_system.item.aim_mode_heavy);
+						ImGui::Checkbox("Nearest Hitbox", &config_system.item.aim_mode_heavy);
 						if (config_system.item.aim_mode_heavy == 0) {
-							ImGui::Combo("heavy hitbox", &config_system.item.aim_bone_heavy, "head\0neck\0chest\0stomach\0pelvis");
+							ImGui::Combo("Hitbox", &config_system.item.aim_bone_heavy, "Head\0Neck\0Chest\0Stomach\0Pelvis");
 						}
-						ImGui::SliderFloat("heavy fov", &config_system.item.aim_fov_heavy, 0.0f, 10.0f, "%.2f");
-						ImGui::SliderFloat("heavy smooth", &config_system.item.aim_smooth_heavy, 1.f, 10.f, "%.2f");
-						ImGui::SliderFloat("heavy rcs x", &config_system.item.rcs_x_heavy, 0.0f, 1.0f, "%.2f");
-						ImGui::SliderFloat("heavy rcs y", &config_system.item.rcs_y_heavy, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("FOV", &config_system.item.aim_fov_heavy, 0.0f, 5.0f, "%.2f");
+						ImGui::SliderFloat("Smoothing", &config_system.item.aim_smooth_heavy, 1.f, 10.f, "%.2f");
+						ImGui::SliderFloat("RCS-X", &config_system.item.rcs_x_heavy, 0.0f, 1.0f, "%.2f");
+						ImGui::SliderFloat("RCS-Y", &config_system.item.rcs_y_heavy, 0.0f, 1.0f, "%.2f");
 						break;
 					}
 					ImGui::PopStyleColor();
@@ -235,19 +235,18 @@ void c_menu::run() {
 				ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, ImVec4(30 / 255.f, 30 / 255.f, 39 / 255.f, 1.0f));
 				ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0 / 255.f, 0 / 255.f, 0 / 255.f, 0.1f));
 
-				ImGui::BeginChild("player", ImVec2(279, 268), true); {
-					ImGui::Checkbox("active", &config_system.item.visuals_enabled);
-					
+				ImGui::BeginChild("ENGINE ESP", ImVec2(279, 268), true); {
+					ImGui::Checkbox("Active", &config_system.item.visuals_enabled);
+					/*
 					if (config_system.item.visuals_enabled) {
-						/*
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 7);
 						ImGui::Checkbox("teammate", &config_system.item.visuals_team_check);
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 7);
 						ImGui::Checkbox("visible only", &config_system.item.visuals_visible_only);
-						*/
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 7);
 						ImGui::Checkbox("on key", &config_system.item.visuals_on_key);
 					}
+					*/
 					/*
 					ImGui::Checkbox("name", &config_system.item.player_name);
 					ImGui::ColorEdit4("name color", config_system.item.clr_name, ImGuiColorEditFlags_NoInputs);					
@@ -287,8 +286,8 @@ void c_menu::run() {
 				ImGui::Dummy(ImVec2(0, 0)); ImGui::SameLine();
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16, 16));
 
-				ImGui::BeginChild("effects", ImVec2(279, 267), true); {
-					ImGui::Checkbox("force crosshair", &config_system.item.force_crosshair);
+				ImGui::BeginChild("EFFECTS", ImVec2(279, 267), true); {
+					ImGui::Checkbox("Force Crosshair", &config_system.item.force_crosshair);
 					/*
 					ImGui::Checkbox("modulate crosshair color", &config_system.item.crosshair_color);
 					ImGui::ColorEdit4("##crosshair color", config_system.item.clr_crosshair, ImGuiColorEditFlags_NoInputs);
@@ -298,7 +297,7 @@ void c_menu::run() {
 
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.visuals_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
 					//ImGui::SliderInt("viewmodel field of view", &config_system.item.viewmodel_fov, 0, 135);
-					ImGui::SliderInt("field of view", &config_system.item.fov, 0, 60);
+					ImGui::SliderInt("FOV Override", &config_system.item.fov, 0, 60);
 					ImGui::PopStyleColor();
 					/*
 					ImGui::Checkbox("night mode", &config_system.item.nightmode);
@@ -324,10 +323,10 @@ void c_menu::run() {
 						ImGui::EndCombo();
 					}
 					*/
-					if (ImGui::BeginCombo("world", "...", ImVec2(0, 105))) {
+					if (ImGui::BeginCombo("WORLD ESP", "...", ImVec2(0, 49))) {
 						ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 8);
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("planted bomb"), &config_system.item.bomb_planted, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
+						ImGui::Selectable(("Planted Bomb"), &config_system.item.bomb_planted, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
 						/*
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
 						ImGui::Selectable(("dropped weapons"), &config_system.item.dropped_weapons, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
@@ -337,7 +336,7 @@ void c_menu::run() {
 						ImGui::Selectable(("misc entities"), &config_system.item.entity_esp, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
 						*/
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
-						ImGui::Selectable(("danger zone"), &config_system.item.danger_zone_dropped, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
+						ImGui::Selectable(("Danger Zone"), &config_system.item.danger_zone_dropped, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
 						ImGui::EndCombo();
 					}
 					ImGui::PopStyleColor();
@@ -346,16 +345,16 @@ void c_menu::run() {
 
 				ImGui::NextColumn();
 
-				ImGui::BeginChild("glow", ImVec2(279, 268), true); {
-					ImGui::Checkbox("active", &config_system.item.visuals_glow);
-					ImGui::Checkbox("enemy", &config_system.item.visuals_glow_enemy);
-					ImGui::ColorEdit4("glow color", config_system.item.clr_glow, ImGuiColorEditFlags_NoInputs);
-					ImGui::Checkbox("teammate", &config_system.item.visuals_glow_team);
-					ImGui::ColorEdit4("glow color team", config_system.item.clr_glow_team, ImGuiColorEditFlags_NoInputs);
-					ImGui::Checkbox("planted bomb", &config_system.item.visuals_glow_planted);
-					ImGui::ColorEdit4("glow color planted", config_system.item.clr_glow_planted, ImGuiColorEditFlags_NoInputs);
-					ImGui::Checkbox("dropped weapons", &config_system.item.visuals_glow_weapons);
-					ImGui::ColorEdit4("glow color weapons", config_system.item.clr_glow_dropped, ImGuiColorEditFlags_NoInputs);
+				ImGui::BeginChild("GLOW", ImVec2(279, 268), true); {
+					ImGui::Checkbox("Active", &config_system.item.visuals_glow);
+					ImGui::Checkbox("Enemy", &config_system.item.visuals_glow_enemy);
+					ImGui::ColorEdit4("Enemy Glow Color", config_system.item.clr_glow, ImGuiColorEditFlags_NoInputs);
+					ImGui::Checkbox("Teammate", &config_system.item.visuals_glow_team);
+					ImGui::ColorEdit4("Teammate Glow Color", config_system.item.clr_glow_team, ImGuiColorEditFlags_NoInputs);
+					ImGui::Checkbox("Planted Bomb", &config_system.item.visuals_glow_planted);
+					ImGui::ColorEdit4("Bomb Glow Color", config_system.item.clr_glow_planted, ImGuiColorEditFlags_NoInputs);
+					ImGui::Checkbox("Dropped Weapons", &config_system.item.visuals_glow_weapons);
+					ImGui::ColorEdit4("Weapon Glow Color", config_system.item.clr_glow_dropped, ImGuiColorEditFlags_NoInputs);
 
 				}
 				ImGui::EndChild(true);
@@ -364,22 +363,22 @@ void c_menu::run() {
 
 				ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 8);
 
-				ImGui::BeginChild("chams", ImVec2(279, 267), true); {
+				ImGui::BeginChild("CHAMS", ImVec2(279, 267), true); {
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.visuals_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					ImGui::Combo("chams type", &config_system.item.vis_chams_type, "textured\0flat\0metallic\0pulsating");
+					ImGui::Combo("Chams Type", &config_system.item.vis_chams_type, "textured\0flat\0metallic\0pulsating");
 					ImGui::PopStyleColor();
-					ImGui::Checkbox("enemy", &config_system.item.vis_chams_vis);
-					ImGui::ColorEdit4("enemy color", config_system.item.clr_chams_vis, ImGuiColorEditFlags_NoInputs);
-					ImGui::Checkbox("enemy (behind wall)", &config_system.item.vis_chams_invis);
-					ImGui::ColorEdit4("enemy (behind wall) color", config_system.item.clr_chams_invis, ImGuiColorEditFlags_NoInputs);
+					ImGui::Checkbox("Enemy", &config_system.item.vis_chams_vis);
+					ImGui::ColorEdit4("Enemy Cham Color", config_system.item.clr_chams_vis, ImGuiColorEditFlags_NoInputs);
+					ImGui::Checkbox("Enemy (behind wall)", &config_system.item.vis_chams_invis);
+					ImGui::ColorEdit4("Enemy (behind wall) Cham Color", config_system.item.clr_chams_invis, ImGuiColorEditFlags_NoInputs);
 
-					ImGui::Checkbox("teammate", &config_system.item.vis_chams_vis_teammate);
-					ImGui::ColorEdit4("teammate color", config_system.item.clr_chams_vis_teammate, ImGuiColorEditFlags_NoInputs);
-					ImGui::Checkbox("teammate (behind wall)", &config_system.item.vis_chams_invis_teammate);
-					ImGui::ColorEdit4("teammate (behind wall) color", config_system.item.clr_chams_invis_teammate, ImGuiColorEditFlags_NoInputs);
+					ImGui::Checkbox("Teammate", &config_system.item.vis_chams_vis_teammate);
+					ImGui::ColorEdit4("Teammate Cham Color", config_system.item.clr_chams_vis_teammate, ImGuiColorEditFlags_NoInputs);
+					ImGui::Checkbox("Teammate (behind wall)", &config_system.item.vis_chams_invis_teammate);
+					ImGui::ColorEdit4("Teammate (behind wall) Cham Color", config_system.item.clr_chams_invis_teammate, ImGuiColorEditFlags_NoInputs);
 
-					ImGui::Checkbox("backtrack", &config_system.item.backtrack_visualize);
-					ImGui::Checkbox("smoke check", &config_system.item.vis_chams_smoke_check);
+					ImGui::Checkbox("Backtrack Chams", &config_system.item.backtrack_visualize);
+					ImGui::Checkbox("Disable Behind Smoke", &config_system.item.vis_chams_smoke_check);
 				}
 				ImGui::EndChild(true);
 
@@ -396,13 +395,13 @@ void c_menu::run() {
 				ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, ImVec4(30 / 255.f, 30 / 255.f, 39 / 255.f, 1.0f));
 				ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0 / 255.f, 0 / 255.f, 0 / 255.f, 0.1f));
 
-				ImGui::BeginChild("misc", ImVec2(279, 543), true); {
-					ImGui::Checkbox("active", &config_system.item.misc_enabled);
+				ImGui::BeginChild("MISC", ImVec2(279, 543), true); {
+					ImGui::Checkbox("Active", &config_system.item.misc_enabled);
 					//ImGui::Checkbox("clantag spammer", &config_system.item.clan_tag);
-					ImGui::Checkbox("engine radar", &config_system.item.radar);
+					ImGui::Checkbox("Engine Radar", &config_system.item.radar);
 
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.misc_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					if (ImGui::BeginCombo("logs", "...", ImVec2(0, 65))) {
+					if (ImGui::BeginCombo("Logs", "...", ImVec2(0, 65))) {
 						ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 8);
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
 						ImGui::Selectable(("player hurt"), &config_system.item.logs_player_hurt, ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
@@ -414,16 +413,17 @@ void c_menu::run() {
 					}
 					ImGui::PopStyleColor();
 
-					ImGui::Checkbox("hitmarker", &config_system.item.hitmarker);
+					ImGui::Checkbox("Hitmarker", &config_system.item.hitmarker);
 					if (config_system.item.hitmarker) {
 						ImGui::Combo("hitmarker sound", &config_system.item.hitmarker_sound, "none\0one\0two\0three");
 					}
-					ImGui::Checkbox("anti screenshot", &config_system.item.anti_screenshot);
-					ImGui::Checkbox("spectators", &config_system.item.spectators_list);
-					ImGui::Checkbox("watermark", &config_system.item.watermark);
-					ImGui::Checkbox("disable post processing", &config_system.item.disable_post_processing);
+					ImGui::Checkbox("Anti Screenshot", &config_system.item.anti_screenshot);
+					ImGui::Checkbox("Spectator List", &config_system.item.spectators_list);
+					ImGui::Checkbox("Watermark", &config_system.item.watermark);
+					ImGui::Checkbox("Draw Aimbot Fov", &config_system.item.draw_aim_fov);
+					ImGui::Checkbox("Disable Post Processing", &config_system.item.disable_post_processing);
 					//ImGui::Checkbox("recoil crosshair", &config_system.item.recoil_crosshair);
-					ImGui::Checkbox("rank reveal", &config_system.item.rank_reveal);
+					ImGui::Checkbox("Rank Reveal", &config_system.item.rank_reveal);
 					/*
 					ImGui::Checkbox("viewmodel offset", &config_system.item.viewmodel_offset);
 					if (config_system.item.viewmodel_offset) {
@@ -451,8 +451,8 @@ void c_menu::run() {
 				ImGui::EndChild(true);
 				ImGui::NextColumn();
 
-				ImGui::BeginChild("movement", ImVec2(279, 543), true); {
-					ImGui::Checkbox("bunny hop", &config_system.item.bunny_hop);
+				ImGui::BeginChild("MOVEMENT", ImVec2(279, 543), true); {
+					ImGui::Checkbox("Bunnyhop", &config_system.item.bunny_hop);
 					if (config_system.item.bunny_hop) {
 						ImGui::SliderInt("hitchance", &config_system.item.bunny_hop_hitchance, 0, 100);
 						ImGui::SliderInt("minimum hops", &config_system.item.bunny_hop_minimum_value, 0, 20);
@@ -460,7 +460,7 @@ void c_menu::run() {
 					}
 
 					//ImGui::Checkbox("slide walk", &config_system.item.slidewalk);
-					ImGui::Checkbox("edge jump", &config_system.item.edge_jump);
+					ImGui::Checkbox("Edge Jump", &config_system.item.edge_jump);
 					if (config_system.item.edge_jump) {
 						ImGui::Checkbox("duck in air", &config_system.item.edge_jump_duck_in_air);
 					}
@@ -478,7 +478,7 @@ void c_menu::run() {
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16, 16));
 				ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, ImVec4(30 / 255.f, 30 / 255.f, 39 / 255.f, 1.0f));
 				ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0 / 255.f, 0 / 255.f, 0 / 255.f, 0.1f));
-				ImGui::BeginChild("config", ImVec2(279, 268), true); {
+				ImGui::BeginChild("CONFIG", ImVec2(279, 268), true); {
 					constexpr auto& config_items = config_system.get_configs();
 					static int current_config = -1;
 
@@ -505,19 +505,19 @@ void c_menu::run() {
 						ImGui::NextColumn();
 
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
-						if (ImGui::Button(("create"), ImVec2(85, 20))) {
+						if (ImGui::Button(("CREATE"), ImVec2(85, 20))) {
 							config_system.add(buffer);
 						}
 
 						ImGui::SameLine();
 
-						if (ImGui::Button(("reset"), ImVec2(85, 20))) {
+						if (ImGui::Button(("RESET"), ImVec2(85, 20))) {
 							config_system.reset();
 						}
 
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
 						if (current_config != -1) {
-							if (ImGui::Button(("load"), ImVec2(85, 20))) {
+							if (ImGui::Button(("LOAD"), ImVec2(85, 20))) {
 								config_system.load(current_config);
 
 								load_config = true;
@@ -535,7 +535,7 @@ void c_menu::run() {
 
 							ImGui::SameLine();
 
-							if (ImGui::Button(("save"), ImVec2(85, 20))) {
+							if (ImGui::Button(("SAVE"), ImVec2(85, 20))) {
 								config_system.save(current_config);
 
 								save_config = true;
@@ -552,7 +552,7 @@ void c_menu::run() {
 							}
 
 							ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
-							if (ImGui::Button(("remove"), ImVec2(85, 20))) {
+							if (ImGui::Button(("REMOVE"), ImVec2(85, 20))) {
 								config_system.remove(current_config);
 							}
 						}
@@ -564,15 +564,20 @@ void c_menu::run() {
 				ImGui::Dummy(ImVec2(0, 0)); ImGui::SameLine();
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16, 16));
 
-				ImGui::BeginChild("settings", ImVec2(279, 267), true); {
-					ImGui::Combo("keybinds", &config_system.item.keybinds_selection, "edge jump\0aimbot key\0visuals key");
+				ImGui::BeginChild("KEY BINDS", ImVec2(279, 267), true); {
+					ImGui::PushItemWidth(175);
+					ImGui::Combo("Keybinds", &config_system.item.keybinds_selection, "Edge Jump Key\0Aimbot Key");
 
 					if (config_system.item.keybinds_selection == 0) {
-						ImGui::Hotkey("##edge jump key", &config_system.item.edge_jump_key, ImVec2(100, 20));
+						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
+						ImGui::InputInt("##AimbotKey", &config_system.item.aim_key);
+						//ImGui::Hotkey("##Edge Jump Key", &config_system.item.edge_jump_key, ImVec2(100, 20));
 					}
 
 					else if (config_system.item.keybinds_selection == 1) {
-						ImGui::Hotkey("##aimbot key", &config_system.item.aim_key, ImVec2(100, 20));
+						//ImGui::Hotkey("##Aimbot Key", &config_system.item.aim_key, ImVec2(100, 20));
+						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
+						ImGui::InputInt("##AimbotKey", &config_system.item.aim_key);
 					}
 					/*
 					else if (config_system.item.keybinds_selection == 2) {
@@ -584,7 +589,7 @@ void c_menu::run() {
 
 				ImGui::NextColumn();
 
-				ImGui::BeginChild("info", ImVec2(279, 543), true); {
+				ImGui::BeginChild("INFO", ImVec2(279, 543), true); {
 					char buffer[UNLEN + 1];
 					DWORD size;
 					size = sizeof(buffer);
