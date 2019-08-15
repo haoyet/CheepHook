@@ -4,10 +4,10 @@
 class c_visuals {
 public:
 	void run() noexcept;
-	void entity_esp(player_t * entity) noexcept;
-	void skeleton(player_t * entity) noexcept;
-	void backtrack_chams(IMatRenderContext* ctx, const draw_model_state_t& state, const model_render_info_t& info);
-	void viewmodel_modulate(const model_render_info_t& info);
+	//void entity_esp(player_t * entity) noexcept;
+	//void skeleton(player_t * entity) noexcept;
+	void backtrack_chams(IMatRenderContext* ctx, const draw_model_state_t& state, const model_render_info_t& info) noexcept;
+	//void viewmodel_modulate(const model_render_info_t& info);
 	void chams() noexcept;
 	void glow() noexcept;
 private:
@@ -92,10 +92,11 @@ private:
 		return true;
 	}
 
-	void player_rendering(player_t * entity) noexcept;
-	void dropped_weapons(player_t * entity) noexcept;
-	void projectiles(player_t * entity) noexcept;
+	//void player_rendering(player_t * entity) noexcept;
+	//void dropped_weapons(player_t * entity) noexcept;
+	//void projectiles(player_t * entity) noexcept;
 	void bomb_esp(player_t * entity) noexcept;
+	void bomb_defuse_esp(player_t* entity) noexcept;
 };
 
 extern c_visuals visuals;

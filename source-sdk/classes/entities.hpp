@@ -347,7 +347,9 @@ public:
 	NETVAR("DT_BasePlayer", "m_nHitboxSet", hitbox_set, int);
 	NETVAR("DT_CSPlayer", "m_flDuckAmount", duck_amount, float);
 	NETVAR("DT_CSPlayer", "m_bHasHeavyArmor", has_heavy_armor, bool);
+	NETVAR("DT_PlantedC4", "m_hBombDefuser", c4_gets_defused, float);
 	NETVAR("DT_PlantedC4", "m_flC4Blow", c4_blow_time, float);
+	NETVAR("DT_PlantedC4", "m_flDefuseCountDown", c4_defuse_countdown, float);
 	NETVAR("DT_SmokeGrenadeProjectile", "m_nSmokeEffectTickBegin", smoke_grenade_tick_begin, int);
 	NETVAR("DT_CSPlayer", "m_nTickBase", get_tick_base, int);
 

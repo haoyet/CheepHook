@@ -2,7 +2,7 @@
 
 c_backtrack backtrack;
 
-std::deque<stored_records> records[65];
+std::deque<stored_records> records[1000];
 convars cvars;
 
 float c_backtrack::get_lerp_time() noexcept {

@@ -2,7 +2,6 @@
 #include "features/misc/misc.hpp"
 #include "menu/config/config.hpp"
 #include "features/misc/events.hpp"
-#include "features/skinchanger/parser.hpp"
 
 unsigned long __stdcall initial_thread(void* reserved) {
 
@@ -29,17 +28,13 @@ unsigned long __stdcall initial_thread(void* reserved) {
 
 	printf("[setup] materials initialized!\n");
 
-	config_system.run("aristois");
+	config_system.run("CheepHook");
 
 	printf("[setup] config initialized!\n");
 
 	events.setup();
 
 	printf("[setup] events initialized!\n");
-
-	kit_parser.setup();
-
-	printf("[setup] kit parser initialized!\n");
 
 	while (!GetAsyncKeyState(VK_END))
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));

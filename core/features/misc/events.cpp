@@ -1,7 +1,6 @@
 #include "events.hpp"
 #include "../misc/logs.hpp"
 #include "../misc/hitmarker.hpp"
-#include "../visuals/sound.hpp"
 #include "../aimbot/aimbot.hpp"
 
 #pragma comment(lib, "Winmm.lib")
@@ -14,15 +13,10 @@ void c_hooked_events::fire_game_event(i_game_event* event) noexcept {
 	if (!strcmp(event_name, "player_hurt")) {
 		hitmarker.event(event);
 		event_logs.event_player_hurt(event);
-		sound_esp.event_player_hurt(event);
 	}
 
 	else if (strstr(event->get_name(), "item_purchase")) {
 		event_logs.event_item_purchase(event);
-	}
-
-	else if (strstr(event->get_name(), "player_footstep")) {
-		sound_esp.event_player_footstep(event);
 	}
 
 	else if (!strcmp(event_name, "player_death")) {

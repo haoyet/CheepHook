@@ -55,8 +55,8 @@ namespace hooks {
 	LRESULT __stdcall wndproc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) noexcept;
 	long __stdcall present(IDirect3DDevice9* device, RECT* source_rect, RECT* dest_rect, HWND dest_window_override, RGNDATA* dirty_region) noexcept;
 	long __stdcall reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* present_parameters) noexcept;
-	void __stdcall draw_model_execute(IMatRenderContext * ctx, const draw_model_state_t & state, const model_render_info_t & info, matrix_t * bone_to_world)noexcept;
-	float __stdcall viewmodel_fov()noexcept;
-	void __stdcall draw_set_color(int r, int g, int b, int a) noexcept;
+	void __stdcall draw_model_execute(IMatRenderContext * ctx, const draw_model_state_t & state, const model_render_info_t & info, matrix_t * bone_to_world) noexcept;
+	//float __stdcall viewmodel_fov()noexcept;
+	//void __stdcall draw_set_color(int r, int g, int b, int a) noexcept;
 	void __stdcall on_screen_size_changed(int old_width, int old_height) noexcept;
 }

@@ -15,7 +15,7 @@ void c_visuals::run() noexcept {
 
 	if (!local_player)
 		return;
-
+	/*
 	//player drawing loop
 	for (int i = 1; i <= interfaces::globals->max_clients; i++) {
 		auto entity = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(i));
@@ -57,7 +57,7 @@ void c_visuals::run() noexcept {
 		skeleton(entity);
 		last_dormant[i] = entity->dormant();
 	}
-
+	*/
 	//non player drawing loop
 	for (int i = 0; i < interfaces::entity_list->get_highest_index(); i++) {
 		auto entity = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(i));
@@ -70,13 +70,13 @@ void c_visuals::run() noexcept {
 				bomb_esp(entity);
 			}
 
-			entity_esp(entity);
-			dropped_weapons(entity);
-			projectiles(entity);
+			//entity_esp(entity);
+			//dropped_weapons(entity);
+			//projectiles(entity);
 		}
 	}
 }
-
+/*
 void c_visuals::entity_esp(player_t* entity) noexcept {
 	if (!config_system.item.entity_esp)
 		return;
@@ -126,17 +126,13 @@ void c_visuals::player_rendering(player_t* entity) noexcept {
 	switch (config_system.item.player_box) {
 	case 0: 
 	break;
-		/*
-		* NORMAL 2D BOX
-		*/
+		//NORMAL 2D BOX
 	case 1: 
 		render.draw_outline(bbox.x - 1, bbox.y - 1, bbox.w + 2, bbox.h + 2, color(0, 0, 0, 255 + alpha[entity->index()]));
 		render.draw_rect(bbox.x, bbox.y, bbox.w, bbox.h, color(red, green, blue, alpha[entity->index()]));
 		render.draw_outline(bbox.x + 1, bbox.y + 1, bbox.w - 2, bbox.h - 2, color(0, 0, 0, 255 + alpha[entity->index()]));
 		break;
-		/*
-		* EDGE ESP Box 
-		*/
+		//EDGE ESP Box 
 	case 2: 
 		render.draw_corner_box(bbox.x - 1, bbox.y - 1, bbox.w + 2, bbox.h + 2, color(0, 0, 0, 255 + alpha[entity->index()]));
 		render.draw_corner_box(bbox.x, bbox.y, bbox.w, bbox.h, color(red, green, blue, 255 + alpha[entity->index()]));
@@ -384,7 +380,7 @@ void c_visuals::projectiles(player_t* entity) noexcept {
 		}
 	}
 }
-
+*/
 void c_visuals::bomb_esp(player_t* entity) noexcept {
 	if (!config_system.item.bomb_planted)
 		return;
@@ -450,6 +446,45 @@ void c_visuals::bomb_esp(player_t* entity) noexcept {
 	render.draw_text(bomb_position.x, bomb_position.y, render.name_font, buffer, true, color(255, 255, 255));
 	render.draw_filled_rect(bomb_position.x - c4_timer / 2, bomb_position.y + 13, c4_timer, 3, color(10, 10, 10, 180));
 	render.draw_filled_rect(bomb_position.x - c4_timer / 2, bomb_position.y + 13, explode_time, 3, color(167, 24, 71, 255));
+}
+
+void c_visuals::bomb_defuse_esp(player_t* entity) noexcept {
+	if (!config_system.item.bomb_planted)
+		return;
+
+	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
+	if (!local_player)
+		return;
+
+	int width, height;
+	interfaces::engine->get_screen_size(width, height);
+
+	auto remaining_time = entity->c4_blow_time() - (interfaces::globals->interval_per_tick * local_player->get_tick_base());
+	auto countdown = entity->c4_defuse_countdown() - (interfaces::globals->interval_per_tick * local_player->get_tick_base());
+	auto start_defusing = entity->c4_gets_defused();
+
+	char defuse_time_string[24];
+	sprintf_s(defuse_time_string, sizeof(defuse_time_string) - 1, "%.1f", countdown);
+	auto defuse_value = (countdown * height) / (remaining_time * 2);
+
+	vec3_t bomb_origin, bomb_position;
+	bomb_origin = entity->origin();
+
+	if (!math.world_to_screen(bomb_origin, bomb_position))
+		return;
+
+	if (start_defusing > 0) {
+		if (remaining_time > countdown) {
+			render.draw_filled_rect(10, 0, 10, defuse_value, color(0, 191, 255, 180));// on srcreen
+			render.draw_text(12, defuse_value - 11, render.name_font, defuse_time_string, false, color(0, 191, 255));// on srcreen
+			render.draw_text(bomb_position.x, bomb_position.y - 18, render.name_font, defuse_time_string, true, color(0, 191, 255));// on bomb
+		}
+		else {
+			render.draw_filled_rect(10, 0, 10, defuse_value, color(255, 0, 0, 180));// on srcreen
+			render.draw_text(12, defuse_value - 11, render.name_font, "NO TIME", false, color(255, 0, 0));// on srcreen
+			render.draw_text(bomb_position.x, bomb_position.y - 18, render.name_font, "NO TIME", true, color(255, 0, 0));// on bomb
+		}
+	}
 }
 
 void c_visuals::chams() noexcept {
@@ -597,7 +632,7 @@ void c_visuals::glow() noexcept {
 
 	}
 }
-
+/*
 void c_visuals::skeleton(player_t* entity) noexcept {
 	if (!config_system.item.skeleton)
 		return;
@@ -624,15 +659,47 @@ void c_visuals::skeleton(player_t* entity) noexcept {
 		}
 	}
 }
+*/
+void c_visuals::backtrack_chams(IMatRenderContext* ctx, const draw_model_state_t& state, const model_render_info_t& info) noexcept {
+	if (!config_system.item.backtrack_visualize || !interfaces::engine->is_connected() && !interfaces::engine->is_in_game())
+		return;
 
-void c_visuals::backtrack_chams(IMatRenderContext* ctx, const draw_model_state_t& state, const model_render_info_t& info) {
+	auto model_name = interfaces::model_info->get_model_name((model_t*)info.model);
+
+	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
+	auto entity = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(info.entity_index));
+	if (!local_player || !local_player->is_alive() || !entity)
+		return;
+
+	static auto draw_model_execute_fn = reinterpret_cast<hooks::draw_model_execute_fn>(hooks::modelrender_hook->get_original(21));
+
+	if (strstr(model_name, "models/player"))
+		if (entity && entity->is_alive() && !entity->dormant()) {
+			int i = entity->index();
+
+			if (local_player && local_player->is_alive() && entity->team() != local_player->team()) {
+				auto record = &records[info.entity_index];
+				if (!record)
+					return;
+
+				if (record && record->size() && backtrack.valid_tick(record->front().simulation_time)) {
+					draw_model_execute_fn(interfaces::model_render, ctx, state, info, record->back().matrix);
+					interfaces::model_render->override_material(nullptr);
+				}
+			}
+		}
+
+}
+/*
+void c_visuals::backtrack_chams(IMatRenderContext* ctx, const draw_model_state_t& state, const model_render_info_t& info) noexcept {
 	if (!config_system.item.backtrack_chams)
 		return;
 
 	if (!interfaces::engine->is_connected() && !interfaces::engine->is_in_game())
 		return;
 }
-
+*/
+/*
 void c_visuals::viewmodel_modulate(const model_render_info_t& info) {
 	if (!interfaces::engine->is_connected() && !interfaces::engine->is_in_game())
 		return;
@@ -659,3 +726,4 @@ void c_visuals::viewmodel_modulate(const model_render_info_t& info) {
 		}
 	}
 }
+*/

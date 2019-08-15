@@ -23,7 +23,7 @@ class c_menu {
 public:
 	void run_popup();
 	void run();
-	void run_visuals_preview();
+	//void run_visuals_preview();
 
 	void __stdcall create_objects(IDirect3DDevice9* device) {
 		if (hooks::window)

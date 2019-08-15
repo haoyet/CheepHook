@@ -55,7 +55,7 @@ void c_movement::edge_jump_pre_prediction(c_usercmd* user_cmd) noexcept {
 
 	flags_backup = local_player->flags();
 }
-
+/*
 void c_movement::slidewalk(c_usercmd* user_cmd) noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player())); // lol
 
@@ -86,7 +86,7 @@ void c_movement::slidewalk(c_usercmd* user_cmd) noexcept {
 			user_cmd->buttons &= ~in_moveright;
 	} 
 }
-
+*/
 void c_movement::edge_jump_post_prediction(c_usercmd* user_cmd) noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 

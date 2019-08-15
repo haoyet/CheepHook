@@ -15,7 +15,7 @@
     <ProjectGuid>{AF041675-F00D-4A72-B40F-78D0C4BB72D9}</ProjectGuid>
     <RootNamespace>ayysense</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>aristois beta</ProjectName>
+    <ProjectName>CheepHook</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -63,6 +63,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;/std:c++latest;debug_build;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,11 +95,6 @@
     <ClCompile Include="core\features\misc\misc.cpp" />
     <ClCompile Include="core\features\misc\prediction.cpp" />
     <ClCompile Include="core\features\misc\movement.cpp" />
-    <ClCompile Include="core\features\skinchanger\glovechanger.cpp" />
-    <ClCompile Include="core\features\skinchanger\parser.cpp" />
-    <ClCompile Include="core\features\skinchanger\skinchanger.cpp" />
-    <ClCompile Include="core\features\visuals\nightmode.cpp" />
-    <ClCompile Include="core\features\visuals\sound.cpp" />
     <ClCompile Include="core\features\visuals\visuals.cpp" />
     <ClCompile Include="core\hooks\hooks.cpp" />
     <ClCompile Include="core\menu\config\config.cpp" />
@@ -134,11 +130,6 @@
     <ClInclude Include="core\features\misc\misc.hpp" />
     <ClInclude Include="core\features\misc\prediction.hpp" />
     <ClInclude Include="core\features\misc\movement.hpp" />
-    <ClInclude Include="core\features\skinchanger\glovechanger.hpp" />
-    <ClInclude Include="core\features\skinchanger\parser.hpp" />
-    <ClInclude Include="core\features\skinchanger\skinchanger.hpp" />
-    <ClInclude Include="core\features\visuals\nightmode.hpp" />
-    <ClInclude Include="core\features\visuals\sound.hpp" />
     <ClInclude Include="core\features\visuals\visuals.hpp" />
     <ClInclude Include="core\hooks\hooks.hpp" />
     <ClInclude Include="core\menu\config\archivex.hpp" />
@@ -224,6 +215,9 @@
     <ClInclude Include="source-sdk\structs\materials.hpp" />
     <ClInclude Include="source-sdk\structs\models.hpp" />
     <ClInclude Include="source-sdk\structs\weaponinfo.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -33,8 +33,8 @@ namespace utilities {
 	};
 
 	void load_named_sky(const char* sky_name);
-	void change_name(const char* name);
-	void dump_steam_id();
+	//void change_name(const char* name);
+	//void dump_steam_id();
 	void force_update();
 	void console_warning(const char * msg, ...);
 	const char * hitgroup_name(int hitgroup);

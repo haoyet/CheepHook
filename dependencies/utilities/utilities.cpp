@@ -1,7 +1,7 @@
 #include "utilities.hpp"
 #include "../common_includes.hpp"
 #include <psapi.h>
-
+/*
 void utilities::change_name(const char* name_to_change) {
 	auto name = interfaces::console->get_convar("name");
 	name->callbacks.set_size(0);
@@ -47,7 +47,7 @@ void utilities::dump_steam_id() {
 
 	}
 }
-
+*/
 template<class T>
 static T* utilities::find_hud_element(const char* name) {
 	static auto fn = *reinterpret_cast<DWORD**>(utilities::pattern_scan(GetModuleHandleA("client_panorama.dll"), ("B9 ? ? ? ? E8 ? ? ? ? 8B 5D 08")) + 1);

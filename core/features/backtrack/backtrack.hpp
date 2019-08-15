@@ -18,7 +18,7 @@ struct convars {
 	convar* max_unlag;
 };
 
-extern std::deque<stored_records> records[65];
+extern std::deque<stored_records> records[1000];
 extern convars cvars;
 
 class c_backtrack  {
