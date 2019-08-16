@@ -188,6 +188,10 @@ public:
 		float clr_chams_invis_teammate[4]{ 1.0f,1.0f,1.0f,1.0f };
 		int aimbot_delay_after_kill{ 0 };
 		bool aimbot_auto_pistol{ false };
+		bool aimbot_auto_shoot{ false };
+		bool aimbot_auto_crouch{ false };
+		bool aimbot_auto_scope{ false };
+		int autoshoot_delay_scoped{ 0 };
 		int glove_model{ 0 };
 		int glove_skin{ 0 };
 		int paint_kit_vector_index_glove{ 0 };

@@ -4,6 +4,7 @@
 #include "../../../source-sdk/math/vector2d.hpp"
 #include "../../../dependencies/common_includes.hpp"
 #include "../../features/backtrack/backtrack.hpp"
+#include <chrono>
 
 c_aimbot aimbot;
 
@@ -249,6 +250,58 @@ void c_aimbot::auto_pistol(c_usercmd* user_cmd) {
 	}
 }
 
+void c_aimbot::auto_shoot(c_usercmd* user_cmd) {
+	if (!config_system.item.aimbot_auto_shoot)
+		return;
+
+	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
+	auto weapon = local_player->active_weapon();
+
+	if (weapon->next_primary_attack() > interfaces::globals->cur_time) {
+		if (weapon->item_definition_index() == item_definition_indexes::WEAPON_REVOLVER) {
+			user_cmd->buttons &= ~in_attack2;
+		}
+		else if (is_sniper(weapon) && local_player->is_scoped()) {
+			if (autoshoot_delay > interfaces::globals->tick_count)
+				return;
+			else
+				user_cmd->buttons &= ~in_attack;
+		}
+		else
+			user_cmd->buttons &= ~in_attack;
+	}
+	else {
+		if (config_system.item.aimbot_auto_scope && !local_player->is_scoped() && is_sniper(weapon)) {
+			autoshoot_delay = interfaces::globals->tick_count + config_system.item.autoshoot_delay_scoped;
+			user_cmd->buttons |= in_attack2;
+		}
+		else if (weapon->item_definition_index() == item_definition_indexes::WEAPON_REVOLVER) {
+			user_cmd->buttons |= in_attack2;
+		}
+		else if (is_sniper(weapon) && local_player->is_scoped()) {
+			if (autoshoot_delay > interfaces::globals->tick_count)
+				return;
+			else
+				user_cmd->buttons |= in_attack;
+		}
+		else
+			user_cmd->buttons |= in_attack;
+	}
+}
+
+void c_aimbot::auto_crouch(c_usercmd* user_cmd) {
+	if (!config_system.item.aimbot_auto_crouch)
+		return;
+
+	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
+	auto weapon = local_player->active_weapon();
+
+	if (is_pistol(weapon) || is_sniper(weapon))
+		return;
+
+	user_cmd->buttons |= in_duck;
+}
+
 void c_aimbot::rcs_standalone(c_usercmd* user_cmd) noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 	if (!local_player)
@@ -367,12 +420,20 @@ void c_aimbot::run(c_usercmd* user_cmd) noexcept {
 				}
 			}
 
+			//float sine = sin(interfaces::globals->tick_count);
+			//float salt = sine * 0.4; // config_system.item.aim_salting_multiplier;
+			//float oval = aim_smooth + salt;
+			//aim_smooth *= oval;
+
 			angle /= aim_smooth;
 			user_cmd->viewangles += angle;
 
 			if (!config_system.item.aim_silent) {
 				interfaces::engine->set_view_angles(user_cmd->viewangles);
 			}
+
+			auto_crouch(user_cmd);
+			auto_shoot(user_cmd);
 		}
 	}
 } 

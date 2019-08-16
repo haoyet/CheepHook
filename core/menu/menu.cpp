@@ -129,6 +129,10 @@ void c_menu::run() {
 					ImGui::Checkbox("Friendly Fire", &config_system.item.aim_team_check);
 					ImGui::Checkbox("Jump Check", &config_system.item.aim_jump_check);
 					ImGui::Checkbox("Auto Pistol", &config_system.item.aimbot_auto_pistol);
+					ImGui::Checkbox("Auto Shoot", &config_system.item.aimbot_auto_shoot);
+					ImGui::Checkbox("Auto Crouch", &config_system.item.aimbot_auto_crouch);
+					ImGui::Checkbox("Auto Scope", &config_system.item.aimbot_auto_scope);
+					ImGui::SliderInt("Autoshoot Delay After Scoping", &config_system.item.autoshoot_delay_scoped, 0, 32);
 					ImGui::SliderInt("Aimlock Delay After Kill", &config_system.item.aimbot_delay_after_kill, 0, 350);
 					ImGui::PopStyleColor();
 

@@ -13,10 +13,13 @@ private:
 	int hitbox_id;
 	vec3_t angle;
 	int kill_delay;
+	int autoshoot_delay;
 public:
 	void run(c_usercmd*) noexcept;
 	void event_player_death(i_game_event* event) noexcept;
 	void auto_pistol(c_usercmd* user_cmd);
+	void auto_shoot(c_usercmd* cmd);
+	void auto_crouch(c_usercmd* user_cmd);
 	void rcs_standalone(c_usercmd* user_cmd) noexcept;
 	bool is_pistol(void* weapon) {
 		if (!weapon)
