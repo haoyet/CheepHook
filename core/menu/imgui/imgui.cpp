@@ -6368,7 +6368,7 @@ bool ImGui::SliderFloat(const char* label, float* v, float v_min, float v_max, c
 	ImGuiContext& g = *GImGui;
 	const ImGuiStyle& style = g.Style;
 	const ImGuiID id = window->GetID(label);
-	const float w = 177;
+	const float w = 213;
 
 	const ImVec2 label_size = CalcTextSize(label, NULL, true);
 	const ImRect frame_bb(window->DC.CursorPos - ImVec2(-17, 2), window->DC.CursorPos + ImVec2(w + 17, label_size.y + style.FramePadding.y* 0.f - 5));
@@ -8309,7 +8309,7 @@ bool ImGui::BeginCombo(const char* label, const char* preview_value, ImVec2 popu
 	ImGuiContext& g = *GImGui;
 	const ImGuiStyle& style = g.Style;
 	const ImGuiID id = window->GetID(label);
-	float w = 175;
+	float w = 211;
 
 	const ImVec2 label_size = CalcTextSize(label, NULL, true);
 	const ImRect frame_bb(window->DC.CursorPos + ImVec2(18, 0), window->DC.CursorPos + ImVec2(w + 18, label_size.y + style.FramePadding.y*2.0f - 1));
@@ -8404,7 +8404,7 @@ bool ImGui::Combo(const char* label, int* current_item, bool(*items_getter)(void
 	ImGuiContext& g = *GImGui;
 	const ImGuiStyle& style = g.Style;
 	const ImGuiID id = window->GetID(label);
-	const float w = 175;//CalcItemWidth();
+	const float w = 211;//CalcItemWidth();
 
 	const ImVec2 label_size = CalcTextSize(label, NULL, true);
 	const ImRect frame_bb(window->DC.CursorPos + ImVec2(18, 0), window->DC.CursorPos + ImVec2(w + 18, label_size.y + style.FramePadding.y*2.0f - 1));

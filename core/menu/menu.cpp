@@ -122,7 +122,6 @@ void c_menu::run() {
 				ImGui::BeginChild("AIMBOT", ImVec2(279, 268), true); {
 					ImGui::Checkbox("Active", &config_system.item.aim_enabled);
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.aim_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					ImGui::PopStyleColor();
 					ImGui::Checkbox("Distance Based FOV", &config_system.item.aim_distance_based_fov);
 					ImGui::Checkbox("Silent Aim (Non-pSilent)", &config_system.item.aim_silent);
 					ImGui::Checkbox("Scope Aim", &config_system.item.scope_aim);
@@ -130,7 +129,6 @@ void c_menu::run() {
 					ImGui::Checkbox("Friendly Fire", &config_system.item.aim_team_check);
 					ImGui::Checkbox("Jump Check", &config_system.item.aim_jump_check);
 					ImGui::Checkbox("Auto Pistol", &config_system.item.aimbot_auto_pistol);
-					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.aim_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
 					ImGui::SliderInt("Aimlock Delay After Kill", &config_system.item.aimbot_delay_after_kill, 0, 350);
 					ImGui::PopStyleColor();
 
@@ -248,7 +246,7 @@ void c_menu::run() {
 					ImGui::PopStyleColor();
 
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.visuals_enabled ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
-					
+
 					if (ImGui::BeginCombo("World ESP", "...", ImVec2(0, 49))) {
 						ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 8);
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() - 4);
@@ -379,6 +377,7 @@ void c_menu::run() {
 
 					static char buffer[16];
 
+					ImGui::PushItemWidth(213);
 					if (ImGui::ListBox("", &current_config, [](void* data, int idx, const char** out_text) {
 						auto& vector = *static_cast<std::vector<std::string>*>(data);
 						*out_text = vector[idx].c_str();
@@ -388,7 +387,7 @@ void c_menu::run() {
 
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
 						ImGui::PushID(0);
-						ImGui::PushItemWidth(178);
+						ImGui::PushItemWidth(211);
 						if (ImGui::InputText("", buffer, IM_ARRAYSIZE(buffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
 							if (current_config != -1)
 								config_system.rename(current_config, buffer);
@@ -397,19 +396,19 @@ void c_menu::run() {
 						ImGui::NextColumn();
 
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
-						if (ImGui::Button(("CREATE"), ImVec2(85, 20))) {
+						if (ImGui::Button(("CREATE"), ImVec2(102, 20))) {
 							config_system.add(buffer);
 						}
 
-						ImGui::SameLine();
+						ImGui::SameLine(0,7);
 
-						if (ImGui::Button(("RESET"), ImVec2(85, 20))) {
+						if (ImGui::Button(("RESET"), ImVec2(102, 20))) {
 							config_system.reset();
 						}
 
 						ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
 						if (current_config != -1) {
-							if (ImGui::Button(("LOAD"), ImVec2(85, 20))) {
+							if (ImGui::Button(("LOAD"), ImVec2(102, 20))) {
 								config_system.load(current_config);
 
 								load_config = true;
@@ -427,7 +426,7 @@ void c_menu::run() {
 
 							ImGui::SameLine();
 
-							if (ImGui::Button(("SAVE"), ImVec2(85, 20))) {
+							if (ImGui::Button(("SAVE"), ImVec2(102, 20))) {
 								config_system.save(current_config);
 
 								save_config = true;
@@ -444,7 +443,7 @@ void c_menu::run() {
 							}
 
 							ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 18);
-							if (ImGui::Button(("REMOVE"), ImVec2(85, 20))) {
+							if (ImGui::Button(("REMOVE"), ImVec2(102, 20))) {
 								config_system.remove(current_config);
 							}
 						}
@@ -457,7 +456,7 @@ void c_menu::run() {
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16, 16));
 
 				ImGui::BeginChild("KEY BINDS", ImVec2(279, 267), true); {
-					ImGui::PushItemWidth(175);
+					ImGui::PushItemWidth(211);
 					ImGui::Combo("Keybinds", &config_system.item.keybinds_selection, "Edge Jump Key\0Aimbot Key");
 
 					if (config_system.item.keybinds_selection == 0) {
