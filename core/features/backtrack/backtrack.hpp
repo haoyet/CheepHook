@@ -21,7 +21,7 @@ struct convars {
 extern std::deque<stored_records> records[1000];
 extern convars cvars;
 
-class c_backtrack  {
+class CBacktrack  {
 public:
 	void update() noexcept;
 	void run(c_usercmd*) noexcept;
@@ -41,4 +41,4 @@ public:
 	}
 };
 
-extern c_backtrack backtrack;
+extern CBacktrack backtrack;

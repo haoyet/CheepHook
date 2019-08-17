@@ -6,9 +6,9 @@
 #include "../../features/backtrack/backtrack.hpp"
 #include <chrono>
 
-c_aimbot aimbot;
+CAimbot aimbot;
 
-int c_aimbot::get_nearest_bone(player_t* entity, c_usercmd* user_cmd) noexcept {
+int CAimbot::get_nearest_bone(player_t* entity, c_usercmd* user_cmd) noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 
 	if (!local_player)
@@ -51,7 +51,7 @@ int c_aimbot::get_nearest_bone(player_t* entity, c_usercmd* user_cmd) noexcept {
 	return aimbone;
 }
 
-void c_aimbot::weapon_settings(weapon_t* weapon) noexcept {
+void CAimbot::weapon_settings(weapon_t* weapon) noexcept {
 	if (!weapon)
 		return;
 
@@ -177,7 +177,7 @@ void c_aimbot::weapon_settings(weapon_t* weapon) noexcept {
 	}
 }
 
-int c_aimbot::find_target(c_usercmd* user_cmd) noexcept {
+int CAimbot::find_target(c_usercmd* user_cmd) noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 
 	if (!local_player)
@@ -205,7 +205,7 @@ int c_aimbot::find_target(c_usercmd* user_cmd) noexcept {
 	return best_target;
 }
 
-void c_aimbot::event_player_death(i_game_event* event) noexcept {
+void CAimbot::event_player_death(i_game_event* event) noexcept {
 	if (!interfaces::engine->is_connected() && !interfaces::engine->is_in_game())
 		return;
 
@@ -223,7 +223,7 @@ void c_aimbot::event_player_death(i_game_event* event) noexcept {
 		kill_delay = interfaces::globals->tick_count + config_system.item.aimbot_delay_after_kill;
 }
 
-void c_aimbot::auto_pistol(c_usercmd* user_cmd) {
+void CAimbot::auto_pistol(c_usercmd* user_cmd) {
 	if (!config_system.item.aimbot_auto_pistol)
 		return;
 
@@ -250,7 +250,7 @@ void c_aimbot::auto_pistol(c_usercmd* user_cmd) {
 	}
 }
 
-void c_aimbot::auto_shoot(c_usercmd* user_cmd) {
+void CAimbot::auto_shoot(c_usercmd* user_cmd) {
 	if (!config_system.item.aimbot_auto_shoot)
 		return;
 
@@ -289,7 +289,7 @@ void c_aimbot::auto_shoot(c_usercmd* user_cmd) {
 	}
 }
 
-void c_aimbot::auto_crouch(c_usercmd* user_cmd) {
+void CAimbot::auto_crouch(c_usercmd* user_cmd) {
 	if (!config_system.item.aimbot_auto_crouch)
 		return;
 
@@ -302,7 +302,10 @@ void c_aimbot::auto_crouch(c_usercmd* user_cmd) {
 	user_cmd->buttons |= in_duck;
 }
 
-void c_aimbot::rcs_standalone(c_usercmd* user_cmd) noexcept {
+void CAimbot::rcs_standalone(c_usercmd* user_cmd) noexcept {
+	if (!config_system.item.aim_enabled && !config_system.item.rcs_standalone_enabled)
+		return;
+
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 	if (!local_player)
 		return;
@@ -320,7 +323,7 @@ void c_aimbot::rcs_standalone(c_usercmd* user_cmd) noexcept {
 	old_punch = aim_punch;
 }
 
-void c_aimbot::run(c_usercmd* user_cmd) noexcept {
+void CAimbot::run(c_usercmd* user_cmd) noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 
 	if (!local_player)

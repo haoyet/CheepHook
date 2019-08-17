@@ -1,8 +1,8 @@
 #include "logs.hpp"
 
-c_event_logs event_logs;
+CEventLogs event_logs;
 
-void c_event_logs::run() noexcept {
+void CEventLogs::run() noexcept {
 	if (logs.empty())
 		return;
 
@@ -33,7 +33,7 @@ void c_event_logs::run() noexcept {
 	}
 }
 
-void c_event_logs::event_item_purchase(i_game_event* event) noexcept {
+void CEventLogs::event_item_purchase(i_game_event* event) noexcept {
 	if (!config_system.item.logs_player_bought)
 		return;
 
@@ -72,7 +72,7 @@ void c_event_logs::event_item_purchase(i_game_event* event) noexcept {
 
 }
 
-void c_event_logs::event_player_hurt(i_game_event* event) noexcept {
+void CEventLogs::event_player_hurt(i_game_event* event) noexcept {
 	if (!config_system.item.logs_player_hurt)
 		return;
 
@@ -136,6 +136,6 @@ void c_event_logs::event_player_hurt(i_game_event* event) noexcept {
 	}
 }
 
-void c_event_logs::add(std::string text, color colors) noexcept {
+void CEventLogs::add(std::string text, color colors) noexcept {
 	logs.push_front(loginfo_t(utilities::epoch_time(), text, colors));
 }

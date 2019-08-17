@@ -143,11 +143,12 @@ void c_menu::run() {
 				ImGui::Dummy(ImVec2(0, 0)); ImGui::SameLine();
 				ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16, 16));
 
-				ImGui::BeginChild("BACKTRACK", ImVec2(279, 267), true); {
-					ImGui::Checkbox("Active", &config_system.item.backtrack);
+				ImGui::BeginChild("EXTRA", ImVec2(279, 267), true); {
+					ImGui::Checkbox("Backtrack", &config_system.item.backtrack);
 					ImGui::PushStyleColor(ImGuiCol_Text, config_system.item.backtrack ? ImVec4(1.f, 1.f, 1.f, 1) : ImVec4(.6f, .6f, .6f, 1));
 					ImGui::SliderFloat("Records (ms)", &config_system.item.backtrack_ms, 1.0f, 200.0f, "%.2f");
 					ImGui::PopStyleColor();
+					ImGui::Checkbox("Standalone RCS", &config_system.item.rcs_standalone_enabled);
 				}
 				ImGui::EndChild(true);
 
@@ -189,7 +190,7 @@ void c_menu::run() {
 						if (config_system.item.aim_mode_sniper == 0) {
 							ImGui::Combo("Hitbox", &config_system.item.aim_bone_sniper, "Head\0Neck\0Chest\0Stomach\0Pelvis");
 						}
-						ImGui::SliderFloat("FOV", &config_system.item.aim_fov_sniper, 0.0f, 5.0f, "%.2f");
+						ImGui::SliderFloat("FOV", &config_system.item.aim_fov_sniper, 0.0f, 3.0f, "%.2f");
 						ImGui::SliderFloat("Smoothing", &config_system.item.aim_smooth_sniper, 1.f, 10.f, "%.2f");
 						ImGui::SliderFloat("RCS-X", &config_system.item.rcs_x_sniper, 0.0f, 1.0f, "%.2f");
 						ImGui::SliderFloat("RCS-Y", &config_system.item.rcs_y_sniper, 0.0f, 1.0f, "%.2f");

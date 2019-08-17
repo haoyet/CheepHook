@@ -1,7 +1,7 @@
 #pragma once
 #include "../../../dependencies/common_includes.hpp"
 
-class c_misc {
+class CMisc {
 public:
 	void rank_reveal() noexcept;
 	void spectators() noexcept;
@@ -12,4 +12,4 @@ public:
 private:
 };
 
-extern c_misc misc;
+extern CMisc misc;

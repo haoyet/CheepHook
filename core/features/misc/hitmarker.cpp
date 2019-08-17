@@ -1,11 +1,11 @@
 #include "hitmarker.hpp"
 #include "../misc/logs.hpp"
 
-c_hitmarker hitmarker;
+CHitmarker hitmarker;
 
 int hitmarker_time = 0;
 
-void c_hitmarker::run() noexcept {
+void CHitmarker::run() noexcept {
 	if (!interfaces::engine->is_connected() && !interfaces::engine->is_in_game())
 		return;
 
@@ -14,7 +14,7 @@ void c_hitmarker::run() noexcept {
 	}
 }
 
-void c_hitmarker::event(i_game_event* event) noexcept {
+void CHitmarker::event(i_game_event* event) noexcept {
 	if (!event)
 		return;
 
@@ -47,7 +47,7 @@ void c_hitmarker::event(i_game_event* event) noexcept {
 	}
 }
 
-void c_hitmarker::draw() noexcept {
+void CHitmarker::draw() noexcept {
 	if (!config_system.item.hitmarker)
 		return;
 

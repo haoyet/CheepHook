@@ -2,9 +2,9 @@
 #include "../aimbot/aimbot.hpp"
 #include "..//..//..//dependencies/math/math.hpp"
 
-c_misc misc;
+CMisc misc;
 
-void c_misc::rank_reveal() noexcept {
+void CMisc::rank_reveal() noexcept {
 	if (!config_system.item.rank_reveal || !config_system.item.misc_enabled)
 		return;
 
@@ -12,7 +12,7 @@ void c_misc::rank_reveal() noexcept {
 		interfaces::client->dispatch_user_message(cs_um_serverrankrevealall, 0, 0, nullptr);
 }
 
-void c_misc::spectators() noexcept {
+void CMisc::spectators() noexcept {
 	if (!config_system.item.spectators_list || !config_system.item.misc_enabled)
 		return;
 
@@ -61,7 +61,7 @@ void c_misc::spectators() noexcept {
 	}
 }
 
-void c_misc::watermark() noexcept {
+void CMisc::watermark() noexcept {
 	if (!config_system.item.watermark || !config_system.item.misc_enabled)
 		return;
 
@@ -88,7 +88,7 @@ void c_misc::watermark() noexcept {
 	render.draw_text(width - 270, 7, render.watermark_font, ss.str().c_str(), false, color(255, 255, 255, 255));
 }
 
-void c_misc::draw_aim_fov() {
+void CMisc::draw_aim_fov() {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 
 	if (!config_system.item.draw_aim_fov || !config_system.item.misc_enabled || !interfaces::engine->is_in_game() || !local_player->is_alive())
@@ -142,7 +142,7 @@ void c_misc::draw_aim_fov() {
 		}
 }
 
-void c_misc::disable_post_processing() noexcept {
+void CMisc::disable_post_processing() noexcept {
 	if (!config_system.item.misc_enabled)
 		return;
 
@@ -150,7 +150,7 @@ void c_misc::disable_post_processing() noexcept {
 	mat_postprocess_enable->set_value(config_system.item.disable_post_processing ? 0 : 1);
 }
 
-void c_misc::force_crosshair() noexcept {
+void CMisc::force_crosshair() noexcept {
 	if (!config_system.item.misc_enabled)
 		return;
 

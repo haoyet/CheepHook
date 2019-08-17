@@ -1,11 +1,11 @@
 #include "../../../dependencies/common_includes.hpp"
 #include "movement.hpp"
 
-c_movement movement;
+CMovement movement;
 
 auto flags_backup = 0;
 
-void c_movement::bunnyhop(c_usercmd* user_cmd) noexcept {
+void CMovement::bunnyhop(c_usercmd* user_cmd) noexcept {
 	if (!config_system.item.bunny_hop || !config_system.item.misc_enabled)
 		return;
 
@@ -38,7 +38,7 @@ void c_movement::bunnyhop(c_usercmd* user_cmd) noexcept {
 	}
 }
 
-void c_movement::edge_jump_pre_prediction(c_usercmd* user_cmd) noexcept {
+void CMovement::edge_jump_pre_prediction(c_usercmd* user_cmd) noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 
 	if (!config_system.item.edge_jump)
@@ -56,7 +56,7 @@ void c_movement::edge_jump_pre_prediction(c_usercmd* user_cmd) noexcept {
 	flags_backup = local_player->flags();
 }
 
-void c_movement::edge_jump_post_prediction(c_usercmd* user_cmd) noexcept {
+void CMovement::edge_jump_post_prediction(c_usercmd* user_cmd) noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 
 	if (!config_system.item.edge_jump)

@@ -2,9 +2,9 @@
 #include "../backtrack/backtrack.hpp"
 #include "../../../dependencies/common_includes.hpp"
 
-c_visuals visuals;
+CVisuals visuals;
 
-void c_visuals::run() noexcept {
+void CVisuals::run() noexcept {
 	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 
 	if (!config_system.item.visuals_enabled)
@@ -32,7 +32,7 @@ void c_visuals::run() noexcept {
 	}
 }
 
-void c_visuals::bomb_esp(player_t* entity) noexcept {
+void CVisuals::bomb_esp(player_t* entity) noexcept {
 	if (!config_system.item.bomb_planted)
 		return;
 
@@ -99,7 +99,7 @@ void c_visuals::bomb_esp(player_t* entity) noexcept {
 	render.draw_filled_rect(bomb_position.x - c4_timer / 2, bomb_position.y + 13, explode_time, 3, color(167, 24, 71, 255));
 }
 
-void c_visuals::bomb_defuse_esp(player_t* entity) noexcept {
+void CVisuals::bomb_defuse_esp(player_t* entity) noexcept {
 	if (!config_system.item.bomb_planted)
 		return;
 
@@ -138,7 +138,7 @@ void c_visuals::bomb_defuse_esp(player_t* entity) noexcept {
 	}
 }
 
-void c_visuals::chams() noexcept {
+void CVisuals::chams() noexcept {
 	if (!config_system.item.visuals_enabled || (!config_system.item.vis_chams_vis && !config_system.item.vis_chams_invis))
 		return;
 
@@ -224,7 +224,7 @@ void c_visuals::chams() noexcept {
 	}
 }
 
-void c_visuals::glow() noexcept {
+void CVisuals::glow() noexcept {
 	if (!config_system.item.visuals_enabled || !config_system.item.visuals_glow)
 		return;
 
@@ -284,7 +284,7 @@ void c_visuals::glow() noexcept {
 	}
 }
 
-void c_visuals::backtrack_chams(IMatRenderContext* ctx, const draw_model_state_t& state, const model_render_info_t& info) noexcept {
+void CVisuals::backtrack_chams(IMatRenderContext* ctx, const draw_model_state_t& state, const model_render_info_t& info) noexcept {
 	if (!config_system.item.backtrack_visualize || !interfaces::engine->is_connected() && !interfaces::engine->is_in_game())
 		return;
 

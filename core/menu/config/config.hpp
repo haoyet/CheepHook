@@ -2,7 +2,7 @@
 
 #include <filesystem>
 
-class c_config final {
+class CConfig final {
 public:
 	void run(const char*) noexcept;
 	void load(size_t) noexcept;
@@ -20,6 +20,7 @@ public:
 		bool backtrack{ false };
 		bool backtrack_visualize{ false };
 		bool aim_enabled{ false };
+		bool rcs_standalone_enabled{ false };
 		bool scope_aim{ false };
 		bool smoke_check{ false };
 		bool aim_silent{ false };
@@ -207,4 +208,4 @@ private:
 	std::vector<std::string> configs;
 };
 
-extern c_config config_system;
+extern CConfig config_system;

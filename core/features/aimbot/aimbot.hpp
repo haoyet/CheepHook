@@ -1,7 +1,7 @@
 #pragma once
 #include "../../../dependencies/common_includes.hpp"
 
-class c_aimbot {
+class CAimbot {
 private:
 	int find_target(c_usercmd * user_cmd) noexcept;
 	int get_nearest_bone(player_t * entity, c_usercmd* user_cmd) noexcept;
@@ -102,4 +102,4 @@ public:
 	}
 };
 
-extern c_aimbot aimbot;
+extern CAimbot aimbot;

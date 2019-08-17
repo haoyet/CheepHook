@@ -2,7 +2,7 @@
 #include "../../../dependencies/common_includes.hpp"
 #include "../../../dependencies/interfaces/i_player_movement.hpp"
 
-class c_prediction {
+class CPrediction {
 public:
 	void start_prediction(c_usercmd* command) noexcept;
 	void end_prediction() noexcept;
@@ -12,4 +12,4 @@ public:
 	player_move_data move_data;
 };
 
-extern c_prediction engine_prediction;
+extern CPrediction engine_prediction;

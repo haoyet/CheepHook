@@ -1,7 +1,7 @@
 #pragma once
 #include "../../../dependencies/common_includes.hpp"
 
-class c_visuals {
+class CVisuals {
 public:
 	void run() noexcept;
 	void backtrack_chams(IMatRenderContext* ctx, const draw_model_state_t& state, const model_render_info_t& info) noexcept;
@@ -93,4 +93,4 @@ private:
 	void bomb_defuse_esp(player_t* entity) noexcept;
 };
 
-extern c_visuals visuals;
+extern CVisuals visuals;
