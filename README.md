@@ -21,6 +21,8 @@ Press `END` key.
 
 ### Known scam/pasted p2c projects (don't use)
 [purves](https://i.imgur.com/wqslXxQ.png)
+[pantsu](https://user-images.githubusercontent.com/51787675/63182599-27a3c500-c07d-11e9-9daa-3ba10bc35902.png)
+[pants2](https://www.facebook.com/pantsuware/?ref=br_rs)
 
 ## Media
 ![image](https://i.imgur.com/v6PVR1g.png)
